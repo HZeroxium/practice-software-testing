@@ -4,7 +4,7 @@ import { FormHelpers } from "./utils/form-helpers";
 import { TestConfigManager } from "./utils/test-config";
 import { RegistrationTestData, TestResult } from "./types/test-data.types";
 
-// Load configuration from environment
+// Load configuration from TypeScript files (with optional environment override)
 TestConfigManager.loadConfigFromEnvironment();
 
 // Read and filter test data
@@ -42,8 +42,13 @@ test.describe("Registration Feature - Data Driven Tests", () => {
       const startTime = Date.now();
 
       try {
-        console.log(`\n=== Executing Test Case: ${data.TestCaseID} ===`);
-        console.log("Test Data:", JSON.stringify(data, null, 2));
+        console.log(
+          `\n╔══════ Executing Test Case: ${data.TestCaseID} ══════╗`
+        );
+        console.log("║ Test Data:", JSON.stringify(data, null, 2));
+        console.log(
+          "╚═══════════════════════════════════════════════════════╝"
+        );
 
         // Clear form before filling (ensure clean state)
         await formHelpers.clearForm();
@@ -90,7 +95,9 @@ test.describe("Registration Feature - Data Driven Tests", () => {
         }
 
         testResult.duration = Date.now() - startTime;
-        console.log(`Test completed in ${testResult.duration}ms`);
+        console.log(
+          `✅ Test ${data.TestCaseID} completed in ${testResult.duration}ms`
+        );
       } catch (error) {
         testResult.status = "failed";
         testResult.errorMessage =
@@ -112,17 +119,20 @@ test.describe("Registration Feature - Data Driven Tests", () => {
 
   // Summary test to display configuration
   test("Test Configuration Summary", async ({ page }) => {
-    console.log("\n=== Test Execution Summary ===");
-    console.log(`Total test cases available: ${allTestData.length}`);
-    console.log(`Test cases executed: ${testData.length}`);
+    console.log("\n╔═══════════════════════════════════════════════════════╗");
+    console.log("║              Test Execution Summary                   ║");
+    console.log("╠═══════════════════════════════════════════════════════╣");
+    console.log(`║ Total test cases available: ${allTestData.length}`);
+    console.log(`║ Test cases executed: ${testData.length}`);
 
     if (!TestConfigManager.getConfig().runAll) {
       console.log(
-        `Selected test cases: ${testData.map((d) => d.TestCaseID).join(", ")}`
+        `║ Selected test cases: ${testData.map((d) => d.TestCaseID).join(", ")}`
       );
     }
 
-    console.log("==============================\n");
+    console.log("║ Configuration source: TypeScript config files        ║");
+    console.log("╚═══════════════════════════════════════════════════════╝\n");
 
     // This test always passes - it's just for informational purposes
     expect(testData.length).toBeGreaterThan(0);

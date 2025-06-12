@@ -1,19 +1,31 @@
 {
   "name": "practicesoftwaretesting-playwright",
   "version": "1.0.0",
-  "description": "",
+  "description": "Playwright automation testing suite for Practice Software Testing application",
   "main": "index.js",
   "scripts": {
-    "test:registration": "npx playwright test registration.spec.ts",
-    "test:registration:headed": "npx playwright test registration.spec.ts --headed",
-    "test:registration:debug": "npx playwright test registration.spec.ts --debug",
-    "test:registration:specific": "TEST_CASES=$TEST_CASES npx playwright test registration.spec.ts",
-    "test:admin-product": "npx playwright test admin-add-product.spec.ts",
-    "test:admin-product:headed": "npx playwright test admin-add-product.spec.ts --headed",
-    "test:admin-product:debug": "npx playwright test admin-add-product.spec.ts --debug",
-    "test:admin-product:specific": "PRODUCT_TEST_CASES=$PRODUCT_TEST_CASES npx playwright test admin-add-product.spec.ts"
+    "setup": "npx playwright install",
+    "setup:deps": "npx playwright install-deps",
+    "setup:all": "npm run setup:deps && npm run setup",
+    "test:check": "npx playwright --version && echo 'Playwright is ready'",
+    "test:registration": "npm run setup && npx playwright test registration.spec.ts",
+    "test:registration:headed": "npm run setup && npx playwright test registration.spec.ts --headed",
+    "test:registration:debug": "npm run setup && npx playwright test registration.spec.ts --debug",
+    "test:registration:specific": "npm run setup && TEST_CASES=$TEST_CASES npx playwright test registration.spec.ts",
+    "test:admin-product": "npm run setup && npx playwright test admin-add-product.spec.ts",
+    "test:admin-product:headed": "npm run setup && npx playwright test admin-add-product.spec.ts --headed",
+    "test:admin-product:debug": "npm run setup && npx playwright test admin-add-product.spec.ts --debug",
+    "test:admin-product:specific": "npm run setup && PRODUCT_TEST_CASES=$PRODUCT_TEST_CASES npx playwright test admin-add-product.spec.ts",
+    "test:ui": "npx playwright test --ui",
+    "test:report": "npx playwright show-report",
+    "postinstall": "npx playwright install"
   },
-  "keywords": [],
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "e2e"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
