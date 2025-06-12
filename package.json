@@ -3,12 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:registration": "npx playwright test registration.spec.ts",
+    "test:registration:headed": "npx playwright test registration.spec.ts --headed",
+    "test:registration:debug": "npx playwright test registration.spec.ts --debug",
+    "test:registration:specific": "TEST_CASES=$TEST_CASES npx playwright test registration.spec.ts",
+    "test:admin-product": "npx playwright test admin-add-product.spec.ts",
+    "test:admin-product:headed": "npx playwright test admin-add-product.spec.ts --headed",
+    "test:admin-product:debug": "npx playwright test admin-add-product.spec.ts --debug",
+    "test:admin-product:specific": "PRODUCT_TEST_CASES=$PRODUCT_TEST_CASES npx playwright test admin-add-product.spec.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.51.1",
-    "@types/node": "^20.11.17"
+    "@types/node": "^20.11.17",
+    "csv-parse": "^5.6.0"
   }
 }
