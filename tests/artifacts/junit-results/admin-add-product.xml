@@ -1,0 +1,2021 @@
+<testsuites id="" name="" tests="37" failures="0" skipped="0" errors="0" time="34.938857000000006">
+  <testsuite name="admin-add-product.spec.ts" timestamp="2025-06-13T09:05:44.452Z" hostname="chromium" tests="37" failures="0" skipped="0" time="309.03" errors="0">
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-01" classname="admin-add-product.spec.ts" time="13.312">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-01 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-01",
+  "Name": "",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-01",
+  "Name": "",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m''[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mfalse[39m,
+  hasValidationErrors: [33mtrue[39m,
+  hasServerError: [33mtrue[39m,
+  validationErrors: { name: [ [32m'Name is required'[39m ], general: [ [32m'Name is required'[39m ] },
+  serverError: [32m'Name is required'[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+⚠️ Product creation failed with validation errors: { name: [ [32m'Name is required'[39m ], general: [ [32m'Name is required'[39m ] }
+✅ Test EP-AP-01 completed in 5982ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-02" classname="admin-add-product.spec.ts" time="12.623">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-02 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-02",
+  "Name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-02",
+  "Name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mfalse[39m,
+  hasValidationErrors: [33mtrue[39m,
+  hasServerError: [33mtrue[39m,
+  validationErrors: {
+    name: [ [32m'The name field must not be greater than 120 characters.'[39m ],
+    general: [ [32m'The name field must not be greater than 120 characters.'[39m ]
+  },
+  serverError: [32m'The name field must not be greater than 120 characters.'[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+⚠️ Product creation failed with validation errors: {
+  name: [ [32m'The name field must not be greater than 120 characters.'[39m ],
+  general: [ [32m'The name field must not be greater than 120 characters.'[39m ]
+}
+✅ Test EP-AP-02 completed in 5583ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-03" classname="admin-add-product.spec.ts" time="13.856">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-03 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-03",
+  "Name": "nominal_placeholder",
+  "Description": "",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-03",
+  "Name": "Test Product",
+  "Description": "",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m''[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mfalse[39m,
+  hasValidationErrors: [33mtrue[39m,
+  hasServerError: [33mtrue[39m,
+  validationErrors: {
+    description: [ [32m'Description is required'[39m ],
+    general: [ [32m'Description is required'[39m ]
+  },
+  serverError: [32m'Description is required'[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+⚠️ Product creation failed with validation errors: {
+  description: [ [32m'Description is required'[39m ],
+  general: [ [32m'Description is required'[39m ]
+}
+✅ Test EP-AP-03 completed in 6307ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-04" classname="admin-add-product.spec.ts" time="12.64">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-04 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-04",
+  "Name": "nominal_placeholder",
+  "Description": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-04",
+  "Name": "Test Product",
+  "Description": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test EP-AP-04 completed in 5596ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-05" classname="admin-add-product.spec.ts" time="12.657">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-05 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-05",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "0",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-05",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "0",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'0'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test EP-AP-05 completed in 5682ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-06" classname="admin-add-product.spec.ts" time="13.484">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-06 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-06",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "-5",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-06",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "-5",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'-5'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test EP-AP-06 completed in 6076ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-07" classname="admin-add-product.spec.ts" time="13.287">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-07 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-07",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "abc",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-07",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "abc",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'abc'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mfalse[39m,
+  hasValidationErrors: [33mtrue[39m,
+  hasServerError: [33mtrue[39m,
+  validationErrors: {
+    price: [ [32m'The price field must be a number.'[39m ],
+    general: [ [32m'The price field must be a number.'[39m ]
+  },
+  serverError: [32m'The price field must be a number.'[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+⚠️ Product creation failed with validation errors: {
+  price: [ [32m'The price field must be a number.'[39m ],
+  general: [ [32m'The price field must be a number.'[39m ]
+}
+✅ Test EP-AP-07 completed in 6188ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-08" classname="admin-add-product.spec.ts" time="13.684">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-08 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-08",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-08",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m''[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mfalse[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+ℹ️ Product creation status unclear - requires manual verification
+✅ Test EP-AP-08 completed in 6010ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-09" classname="admin-add-product.spec.ts" time="14.142">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-09 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-09",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-09",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m''[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mfalse[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+ℹ️ Product creation status unclear - requires manual verification
+✅ Test EP-AP-09 completed in 6399ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-10" classname="admin-add-product.spec.ts" time="13.121">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-10 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-10",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-10",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m''[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mfalse[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+ℹ️ Product creation status unclear - requires manual verification
+✅ Test EP-AP-10 completed in 6123ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-11" classname="admin-add-product.spec.ts" time="6.424">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-11 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-11",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "-1",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-11",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "-1",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'-1'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test EP-AP-11 completed in 3808ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-12" classname="admin-add-product.spec.ts" time="7.079">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-12 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-12",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "3.14",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-12",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "3.14",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'3.14'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test EP-AP-12 completed in 4328ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-13" classname="admin-add-product.spec.ts" time="6.378">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-13 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-13",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "on",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-13",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "on",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'true'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test EP-AP-13 completed in 3843ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-14" classname="admin-add-product.spec.ts" time="8.441">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-14 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-14",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "on"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-14",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "on"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'true'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test EP-AP-14 completed in 4912ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-15" classname="admin-add-product.spec.ts" time="7.702">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-15 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-15",
+  "Name": "O’Reilly Drill",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-15",
+  "Name": "O’Reilly Drill",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'O’Reilly Drill'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test EP-AP-15 completed in 4365ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-16" classname="admin-add-product.spec.ts" time="7.476">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-16 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-16",
+  "Name": "Électro Tool",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-16",
+  "Name": "Électro Tool",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Électro Tool'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test EP-AP-16 completed in 4277ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-17" classname="admin-add-product.spec.ts" time="8.086">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-17 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-17",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "19.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-17",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "19.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'19.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test EP-AP-17 completed in 4835ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - EP-AP-18" classname="admin-add-product.spec.ts" time="7.542">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: EP-AP-18 ══════╗
+║ Test Data: {
+  "TestCaseID": "EP-AP-18",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "0",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "EP-AP-18",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "0",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'0'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test EP-AP-18 completed in 4526ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-02" classname="admin-add-product.spec.ts" time="8.357">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-02 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-02",
+  "Name": "A",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-02",
+  "Name": "A",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'A'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-02 completed in 4834ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-03" classname="admin-add-product.spec.ts" time="8.09">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-03 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-03",
+  "Name": "AB",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-03",
+  "Name": "AB",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'AB'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-03 completed in 4373ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-04" classname="admin-add-product.spec.ts" time="6.222">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-04 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-04",
+  "Name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-04",
+  "Name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mfalse[39m,
+  hasValidationErrors: [33mtrue[39m,
+  hasServerError: [33mtrue[39m,
+  validationErrors: {
+    name: [ [32m'The name field must not be greater than 120 characters.'[39m ],
+    general: [ [32m'The name field must not be greater than 120 characters.'[39m ]
+  },
+  serverError: [32m'The name field must not be greater than 120 characters.'[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+⚠️ Product creation failed with validation errors: {
+  name: [ [32m'The name field must not be greater than 120 characters.'[39m ],
+  general: [ [32m'The name field must not be greater than 120 characters.'[39m ]
+}
+✅ Test BVA-AP-04 completed in 4021ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-05" classname="admin-add-product.spec.ts" time="6.088">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-05 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-05",
+  "Name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-05",
+  "Name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mfalse[39m,
+  hasValidationErrors: [33mtrue[39m,
+  hasServerError: [33mtrue[39m,
+  validationErrors: {
+    name: [ [32m'The name field must not be greater than 120 characters.'[39m ],
+    general: [ [32m'The name field must not be greater than 120 characters.'[39m ]
+  },
+  serverError: [32m'The name field must not be greater than 120 characters.'[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+⚠️ Product creation failed with validation errors: {
+  name: [ [32m'The name field must not be greater than 120 characters.'[39m ],
+  general: [ [32m'The name field must not be greater than 120 characters.'[39m ]
+}
+✅ Test BVA-AP-05 completed in 4113ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-07" classname="admin-add-product.spec.ts" time="6.521">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-07 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-07",
+  "Name": "nominal_placeholder",
+  "Description": "",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-07",
+  "Name": "Test Product",
+  "Description": "",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m''[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mfalse[39m,
+  hasValidationErrors: [33mtrue[39m,
+  hasServerError: [33mtrue[39m,
+  validationErrors: {
+    description: [ [32m'Description is required'[39m ],
+    general: [ [32m'Description is required'[39m ]
+  },
+  serverError: [32m'Description is required'[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+⚠️ Product creation failed with validation errors: {
+  description: [ [32m'Description is required'[39m ],
+  general: [ [32m'Description is required'[39m ]
+}
+✅ Test BVA-AP-07 completed in 3834ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-09" classname="admin-add-product.spec.ts" time="6.753">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-09 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-09",
+  "Name": "nominal_placeholder",
+  "Description": "X",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-09",
+  "Name": "Test Product",
+  "Description": "X",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'X'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-09 completed in 3816ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-10" classname="admin-add-product.spec.ts" time="6.164">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-10 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-10",
+  "Name": "nominal_placeholder",
+  "Description": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-10",
+  "Name": "Test Product",
+  "Description": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-10 completed in 3759ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-11" classname="admin-add-product.spec.ts" time="6.315">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-11 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-11",
+  "Name": "nominal_placeholder",
+  "Description": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-11",
+  "Name": "Test Product",
+  "Description": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-11 completed in 3915ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-14" classname="admin-add-product.spec.ts" time="6.967">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-14 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-14",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "0.01",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-14",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "0.01",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'0.01'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-14 completed in 4226ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-15" classname="admin-add-product.spec.ts" time="7.553">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-15 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-15",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "0.02",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-15",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "0.02",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'0.02'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-15 completed in 4475ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-16" classname="admin-add-product.spec.ts" time="7.284">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-16 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-16",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "999999.98",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-16",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "999999.98",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'999999.98'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-16 completed in 4369ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-17" classname="admin-add-product.spec.ts" time="7.227">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-17 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-17",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "999999.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-17",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "999999.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'999999.99'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-17 completed in 4329ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-18" classname="admin-add-product.spec.ts" time="6.168">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-18 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-18",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "1000000",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-18",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "1000000",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "100",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'1000000'[39m,
+  stock: [32m'100'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-18 completed in 3822ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-21" classname="admin-add-product.spec.ts" time="6.171">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-21 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-21",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "1",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-21",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "1",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'1'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-21 completed in 3814ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-22" classname="admin-add-product.spec.ts" time="5.459">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-22 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-22",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "999998",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-22",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "999998",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'999998'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-22 completed in 3232ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-23" classname="admin-add-product.spec.ts" time="5.847">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-23 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-23",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "999999",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-23",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "999999",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'999999'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-23 completed in 3761ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Test - BVA-AP-24" classname="admin-add-product.spec.ts" time="5.689">
+      <system-out>
+        <![CDATA[
+╔══════ Executing Test Case: BVA-AP-24 ══════╗
+║ Test Data: {
+  "TestCaseID": "BVA-AP-24",
+  "Name": "nominal_placeholder",
+  "Description": "nominal_placeholder",
+  "Price": "nominal_placeholder",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "1000000",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+╚═══════════════════════════════════════════════════════╝
+📋 Processed Test Data: {
+  "TestCaseID": "BVA-AP-24",
+  "Name": "Test Product",
+  "Description": "This is a test product description for automation testing purposes.",
+  "Price": "29.99",
+  "Brand": "1",
+  "Category": "1",
+  "ProductImage": "1",
+  "Stock": "1000000",
+  "LocationOffer": "off",
+  "Rental": "off"
+}
+📝 Current Form Values: {
+  name: [32m'Test Product'[39m,
+  description: [32m'This is a test product description for automation testing purposes.'[39m,
+  price: [32m'29.99'[39m,
+  stock: [32m'1000000'[39m,
+  brand: [32m'1'[39m,
+  category: [32m'1'[39m,
+  productImage: [32m'1'[39m,
+  locationOffer: [32m'false'[39m,
+  rental: [32m'false'[39m
+}
+📝 Submitting admin product form...
+🌐 URL changed from http://localhost:4200/#/admin/products/add to http://localhost:4200/#/admin/products/add
+📊 Submission Result: {
+  isSuccess: [33mtrue[39m,
+  hasValidationErrors: [33mfalse[39m,
+  hasServerError: [33mfalse[39m,
+  validationErrors: {},
+  serverError: [90mundefined[39m,
+  currentUrl: [32m'http://localhost:4200/#/admin/products/add'[39m,
+  redirected: [33mfalse[39m
+}
+✅ Product creation successful - success message displayed or redirected
+✅ Test BVA-AP-24 completed in 3779ms
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Test Configuration Summary" classname="admin-add-product.spec.ts" time="2.144">
+      <system-out>
+        <![CDATA[
+╔═══════════════════════════════════════════════════════╗
+║             Admin Test Execution Summary             ║
+╠═══════════════════════════════════════════════════════╣
+║ Total test cases available: 42
+║ Test cases executed: 35
+║ Admin credentials: admin@practicesoftwaretesting.com
+║ Configuration source: TypeScript config files        ║
+╚═══════════════════════════════════════════════════════╝
+
+]]>
+      </system-out>
+    </testcase>
+    <testcase name="Admin Add Product Feature - Data Driven Tests › Admin Add Product Form Field Verification" classname="admin-add-product.spec.ts" time="2.077">
+      <system-out>
+        <![CDATA[✅ All admin product form fields are accessible
+]]>
+      </system-out>
+    </testcase>
+  </testsuite>
+</testsuites>

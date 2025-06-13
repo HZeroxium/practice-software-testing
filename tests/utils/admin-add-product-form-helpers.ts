@@ -1,6 +1,16 @@
 import { Page } from "@playwright/test";
 import { AddProductTestData } from "../types/admin-test-data.types";
 
+export interface AdminSubmissionResult {
+  isSuccess: boolean;
+  hasValidationErrors: boolean;
+  hasServerError: boolean;
+  validationErrors: Record<string, string[]>;
+  serverError?: string;
+  currentUrl: string;
+  redirected: boolean;
+}
+
 export class AdminFormHelpers {
   constructor(private page: Page) {}
 
@@ -265,5 +275,102 @@ export class AdminFormHelpers {
     }
 
     return values;
+  }
+
+  /**
+   * Submits the form and waits for initial response
+   */
+  async submitFormAndWait(): Promise<void> {
+    console.log("📝 Submitting admin product form...");
+
+    // Get initial URL for comparison
+    const initialUrl = this.page.url();
+
+    // Submit the form
+    await this.page.click('[data-test="product-submit"]');
+
+    // Wait for form submission to be processed
+    // This gives the server time to process the request
+    await this.page.waitForTimeout(1000); // Initial wait for form submission
+
+    try {
+      // Wait for one of several possible outcomes
+      await Promise.race([
+        // Success: Success message appears
+        this.page.waitForSelector(".alert-success", { timeout: 8000 }),
+        // Error: Server error message appears
+        this.page.waitForSelector(".alert-danger", { timeout: 8000 }),
+        // Validation: Field-level errors appear
+        this.page.waitForSelector(".is-invalid, [class*='error']", {
+          timeout: 8000,
+        }),
+        // Redirect: URL change (to products list)
+        this.page.waitForURL(/admin\/products/, { timeout: 8000 }),
+        // Network: Wait for network to be idle
+        this.page.waitForLoadState("networkidle", { timeout: 8000 }),
+      ]);
+    } catch (timeoutError) {
+      console.log(
+        "⏱️ Submission wait timed out - continuing with current state"
+      );
+    }
+
+    // Additional wait to ensure UI has updated
+    await this.page.waitForTimeout(1500);
+
+    const currentUrl = this.page.url();
+    console.log(`🌐 URL changed from ${initialUrl} to ${currentUrl}`);
+  }
+
+  /**
+   * Gets comprehensive submission result information
+   */
+  async getSubmissionResult(): Promise<AdminSubmissionResult> {
+    const currentUrl = this.page.url();
+    const initialUrlPattern = "add"; // Expected to contain this initially
+    const redirected = !currentUrl.includes(initialUrlPattern);
+
+    // Check for success (redirect to products list or success message)
+    const isSuccessRedirect =
+      currentUrl.includes("/admin/products") && !currentUrl.includes("/add");
+    const successMessages = await this.getSuccessMessages();
+    const isSuccess = isSuccessRedirect || successMessages.length > 0;
+
+    // Get validation errors
+    const validationErrors = await this.getValidationErrors();
+    const hasValidationErrors = Object.keys(validationErrors).length > 0;
+
+    // Check for server errors
+    let serverError: string | undefined;
+    let hasServerError = false;
+
+    try {
+      const serverErrorElements = await this.page
+        .locator('.alert-danger:not([data-test*="-error"])')
+        .all();
+
+      for (const element of serverErrorElements) {
+        if (await element.isVisible({ timeout: 1000 })) {
+          const errorText = await element.textContent();
+          if (errorText && errorText.trim()) {
+            serverError = errorText.trim();
+            hasServerError = true;
+            break;
+          }
+        }
+      }
+    } catch (error) {
+      // No server error element found
+    }
+
+    return {
+      isSuccess,
+      hasValidationErrors,
+      hasServerError,
+      validationErrors,
+      serverError,
+      currentUrl,
+      redirected,
+    };
   }
 }

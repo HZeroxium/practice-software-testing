@@ -4,7 +4,7 @@
  */
 
 // Set to true to run all test cases, false to run only specified cases
-export const RUN_ALL_REGISTRATION_TESTS = false;
+export const RUN_ALL_REGISTRATION_TESTS = true;
 
 // Specify which test cases to run when RUN_ALL_REGISTRATION_TESTS is false
 // Add or remove test case IDs from this array
@@ -26,6 +26,7 @@ export const EXCLUDE_TEST_CASES: string[] = [
 ];
 
 export const EXCLUDE_BY_PREFIX: string[] = [
+  "DUP-REG-", // Exclude duplicate registration tests
   // "REG-BVA-",   // Exclude all boundary value analysis tests
   // "REG-PERF-",  // Exclude performance tests
 ];

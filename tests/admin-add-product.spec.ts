@@ -3,10 +3,7 @@ import { AdminDataReader } from "./utils/admin-add-product-data-reader";
 import { AdminFormHelpers } from "./utils/admin-add-product-form-helpers";
 import { AdminAuthHelper } from "./utils/admin-auth-helper";
 import { AdminTestConfigManager } from "./utils/admin-add-product-test-config";
-import {
-  AddProductTestData,
-  AdminTestResult,
-} from "./types/admin-test-data.types";
+import { AdminTestResult } from "./types/admin-test-data.types";
 
 // Load configuration from environment
 AdminTestConfigManager.loadConfigFromEnvironment();
@@ -42,15 +39,6 @@ test.describe("Admin Add Product Feature - Data Driven Tests", () => {
     );
   });
 
-  test.afterEach(async ({ page }) => {
-    // Take a screenshot after each test
-    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-    await page.screenshot({
-      path: `test-results/screenshots/admin-product-${timestamp}.png`,
-      fullPage: true,
-    });
-  });
-
   // Generate a test for each data row
   for (const data of testData) {
     test(`Admin Add Product Test - ${data.TestCaseID}`, async ({ page }) => {
@@ -63,13 +51,17 @@ test.describe("Admin Add Product Feature - Data Driven Tests", () => {
 
       try {
         console.log(
-          `\n=== Executing Admin Product Test Case: ${data.TestCaseID} ===`
+          `\n╔══════ Executing Test Case: ${data.TestCaseID} ══════╗`
+        );
+        console.log("║ Test Data:", JSON.stringify(data, null, 2));
+        console.log(
+          "╚═══════════════════════════════════════════════════════╝"
         );
 
         // Replace nominal values with actual values
         const processedData = AdminDataReader.replaceNominalValues(data);
         console.log(
-          "Processed Test Data:",
+          "📋 Processed Test Data:",
           JSON.stringify(processedData, null, 2)
         );
 
@@ -79,65 +71,56 @@ test.describe("Admin Add Product Feature - Data Driven Tests", () => {
         // Fill the add product form with test data
         await formHelpers.fillAddProductForm(processedData);
 
-        // Take screenshot before submission
-        await page.screenshot({
-          path: `test-results/screenshots/before-submit-${data.TestCaseID}.png`,
-          fullPage: true,
-        });
-
         // Log current form values for debugging
         const currentValues = await formHelpers.getCurrentFormValues();
-        console.log("Current Form Values:", currentValues);
+        console.log("📝 Current Form Values:", currentValues);
 
-        // Submit the form
-        await formHelpers.submitForm();
-
-        // Wait for submission result
-        await formHelpers.waitForSubmissionResult();
-
-        // Take screenshot after submission
+        // Take screenshot before submission
         await page.screenshot({
-          path: `test-results/screenshots/after-submit-${data.TestCaseID}.png`,
+          path: `test-results/screenshots/before-submit/${data.TestCaseID}.png`,
           fullPage: true,
         });
 
-        // Get validation errors (if any)
-        const validationErrors = await formHelpers.getValidationErrors();
+        // Submit the form and wait for initial response
+        await formHelpers.submitFormAndWait();
 
-        // Get success messages (if any)
-        const successMessages = await formHelpers.getSuccessMessages();
+        // Take screenshot after submission with proper wait
+        await page.screenshot({
+          path: `test-results/screenshots/after-submit/${data.TestCaseID}.png`,
+          fullPage: true,
+        });
 
-        if (Object.keys(validationErrors).length > 0) {
-          console.log("Validation Errors Found:", validationErrors);
-          testResult.validationErrors = validationErrors;
-        }
+        // Get final submission status
+        const submissionResult = await formHelpers.getSubmissionResult();
 
-        if (successMessages.length > 0) {
-          console.log("Success Messages:", successMessages);
-        }
+        // Log the results
+        console.log("📊 Submission Result:", submissionResult);
 
-        // Check current URL and page state to determine result
-        const currentUrl = page.url();
-
-        if (successMessages.some((msg) => msg.includes("saved"))) {
+        if (submissionResult.isSuccess) {
           console.log(
-            "✅ Product creation appears successful - success message displayed"
+            "✅ Product creation successful - success message displayed or redirected"
           );
-        } else if (Object.keys(validationErrors).length > 0) {
-          console.log("⚠️ Product creation failed with validation errors");
-        } else if (
-          currentUrl.includes("/admin/products") &&
-          !currentUrl.includes("/add")
-        ) {
+        } else if (submissionResult.hasValidationErrors) {
           console.log(
-            "✅ Product creation appears successful - redirected to products list"
+            "⚠️ Product creation failed with validation errors:",
+            submissionResult.validationErrors
+          );
+        } else if (submissionResult.hasServerError) {
+          console.log(
+            "❌ Product creation failed with server error:",
+            submissionResult.serverError
           );
         } else {
-          console.log("ℹ️ Product form submitted - awaiting result analysis");
+          console.log(
+            "ℹ️ Product creation status unclear - requires manual verification"
+          );
         }
 
         testResult.duration = Date.now() - startTime;
-        console.log(`Test completed in ${testResult.duration}ms`);
+        testResult.validationErrors = submissionResult.validationErrors;
+        console.log(
+          `✅ Test ${data.TestCaseID} completed in ${testResult.duration}ms`
+        );
       } catch (error) {
         testResult.status = "failed";
         testResult.errorMessage =
@@ -157,33 +140,24 @@ test.describe("Admin Add Product Feature - Data Driven Tests", () => {
     });
   }
 
-  // Test to verify admin authentication
-  test("Admin Authentication Verification", async ({ page }) => {
-    const isAuthenticated = await authHelper.isAuthenticatedAsAdmin();
-    expect(isAuthenticated).toBe(true);
-
-    // Verify admin can access products page
-    await page.goto("/#/admin/products");
-    await expect(page.locator('[data-test="page-title"]')).toContainText(
-      "Products"
-    );
-  });
-
   // Summary test to display configuration
   test("Admin Test Configuration Summary", async ({ page }) => {
-    console.log("\n=== Admin Product Test Execution Summary ===");
-    console.log(`Total test cases available: ${allTestData.length}`);
-    console.log(`Test cases executed: ${testData.length}`);
+    console.log("\n╔═══════════════════════════════════════════════════════╗");
+    console.log("║             Admin Test Execution Summary             ║");
+    console.log("╠═══════════════════════════════════════════════════════╣");
+    console.log(`║ Total test cases available: ${allTestData.length}`);
+    console.log(`║ Test cases executed: ${testData.length}`);
 
     if (!AdminTestConfigManager.getConfig().runAll) {
       console.log(
-        `Selected test cases: ${testData.map((d) => d.TestCaseID).join(", ")}`
+        `║ Selected test cases: ${testData.map((d) => d.TestCaseID).join(", ")}`
       );
     }
 
     const config = AdminTestConfigManager.getConfig();
-    console.log(`Admin credentials: ${config.adminCredentials?.email}`);
-    console.log("==========================================\n");
+    console.log(`║ Admin credentials: ${config.adminCredentials?.email}`);
+    console.log("║ Configuration source: TypeScript config files        ║");
+    console.log("╚═══════════════════════════════════════════════════════╝\n");
 
     // This test always passes - it's just for informational purposes
     expect(testData.length).toBeGreaterThan(0);

@@ -61,7 +61,7 @@ test.describe("Registration Feature - Data Driven Tests", () => {
 
         // Take screenshot before submission
         await page.screenshot({
-          path: `test-results/screenshots/before-submit-${data.TestCaseID}.png`,
+          path: `test-results/screenshots/before-submit/${data.TestCaseID}.png`,
           fullPage: true,
         });
 
@@ -70,7 +70,7 @@ test.describe("Registration Feature - Data Driven Tests", () => {
 
         // Take screenshot after submission with proper wait
         await page.screenshot({
-          path: `test-results/screenshots/after-submit-${data.TestCaseID}.png`,
+          path: `test-results/screenshots/after-submit/${data.TestCaseID}.png`,
           fullPage: true,
         });
 

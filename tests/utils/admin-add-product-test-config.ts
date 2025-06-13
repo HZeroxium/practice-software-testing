@@ -143,20 +143,28 @@ export class AdminTestConfigManager {
   }
 
   /**
-   * Prints current configuration
+   * Prints current configuration with enhanced formatting
    */
   static printConfig(): void {
-    console.log("=== Admin Product Test Configuration ===");
-    console.log(`Run All Tests: ${this.config.runAll}`);
-    console.log(`Test Data File: ${this.config.testDataFile}`);
-    console.log(`Admin Email: ${this.config.adminCredentials?.email}`);
+    console.log("╔══════════════════════════════════════╗");
+    console.log("║       Admin Product Test Config     ║");
+    console.log("╠══════════════════════════════════════╣");
+    console.log(`║ Run All Tests: ${this.config.runAll ? "✅ YES" : "❌ NO"}`);
+    console.log(`║ Test Data File: ${this.config.testDataFile}`);
+    console.log(`║ Admin Email: ${this.config.adminCredentials?.email}`);
 
     if (
       !this.config.runAll &&
       this.config.testCaseIds &&
       this.config.testCaseIds.length > 0
     ) {
-      console.log(`Selected Test Cases: ${this.config.testCaseIds.join(", ")}`);
+      console.log(`║ Selected Test Cases (${this.config.testCaseIds.length}):`);
+      this.config.testCaseIds.forEach((id, index) => {
+        const isLast = index === this.config.testCaseIds!.length - 1;
+        console.log(`║   ${isLast ? "└─" : "├─"} ${id}`);
+      });
+    } else if (!this.config.runAll) {
+      console.log("║ ⚠️  No specific test cases selected");
     }
 
     // Show exclude configuration when running all tests
@@ -167,30 +175,34 @@ export class AdminTestConfigManager {
         (this.config.excludeBySuffix?.length || 0) > 0;
 
       if (hasExcludes) {
-        console.log("Exclude Configuration:");
+        console.log("║ Exclude Configuration:");
 
         if (this.config.excludeTestCases?.length) {
           console.log(
-            `  🚫 Test Cases: ${this.config.excludeTestCases.join(", ")}`
+            `║   🚫 Test Cases (${this.config.excludeTestCases.length}):`
           );
+          this.config.excludeTestCases.forEach((id, index) => {
+            const isLast = index === this.config.excludeTestCases!.length - 1;
+            console.log(`║      ${isLast ? "└─" : "├─"} ${id}`);
+          });
         }
 
         if (this.config.excludeByPrefix?.length) {
           console.log(
-            `  🚫 By Prefix: ${this.config.excludeByPrefix.join(", ")}`
+            `║   🚫 By Prefix: ${this.config.excludeByPrefix.join(", ")}`
           );
         }
 
         if (this.config.excludeBySuffix?.length) {
           console.log(
-            `  🚫 By Suffix: ${this.config.excludeBySuffix.join(", ")}`
+            `║   🚫 By Suffix: ${this.config.excludeBySuffix.join(", ")}`
           );
         }
       } else {
-        console.log("No exclusions configured");
+        console.log("║ No exclusions configured");
       }
     }
 
-    console.log("==========================================");
+    console.log("╚══════════════════════════════════════╝");
   }
 }
