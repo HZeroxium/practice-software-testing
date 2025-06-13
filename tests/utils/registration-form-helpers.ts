@@ -1,5 +1,15 @@
 import { Page, Locator } from "@playwright/test";
-import { RegistrationTestData } from "../types/test-data.types";
+import { RegistrationTestData } from "../types/registration-test-data.types";
+
+export interface SubmissionResult {
+  isSuccess: boolean;
+  hasValidationErrors: boolean;
+  hasServerError: boolean;
+  validationErrors: Record<string, string[]>;
+  serverError?: string;
+  currentUrl: string;
+  redirected: boolean;
+}
 
 export class FormHelpers {
   constructor(private page: Page) {}
@@ -70,26 +80,144 @@ export class FormHelpers {
   }
 
   /**
-   * Submits the registration form
+   * Submits the form and waits for initial response
+   */
+  async submitFormAndWait(): Promise<void> {
+    console.log("📝 Submitting registration form...");
+
+    // Get initial URL for comparison
+    const initialUrl = this.page.url();
+
+    // Submit the form
+    await this.page.click('[data-test="register-submit"]');
+
+    // Wait for form submission to be processed
+    // This gives the server time to process the request
+    await this.page.waitForTimeout(1000); // Initial wait for form submission
+
+    try {
+      // Wait for one of several possible outcomes
+      await Promise.race([
+        // Success: Redirect to login page
+        this.page.waitForURL(/login/, { timeout: 8000 }),
+        // Error: Server error message appears
+        this.page.waitForSelector('[data-test="register-error"]', {
+          timeout: 8000,
+        }),
+        // Validation: Field-level errors appear
+        this.page.waitForSelector('[class*="error"], [data-test*="-error"]', {
+          timeout: 8000,
+        }),
+        // Network: Wait for network to be idle
+        this.page.waitForLoadState("networkidle", { timeout: 8000 }),
+      ]);
+    } catch (timeoutError) {
+      console.log(
+        "⏱️ Submission wait timed out - continuing with current state"
+      );
+    }
+
+    // Additional wait to ensure UI has updated
+    await this.page.waitForTimeout(1500);
+
+    const currentUrl = this.page.url();
+    console.log(`🌐 URL changed from ${initialUrl} to ${currentUrl}`);
+  }
+
+  /**
+   * Gets comprehensive submission result information
+   */
+  async getSubmissionResult(): Promise<SubmissionResult> {
+    const currentUrl = this.page.url();
+    const initialUrl = "register"; // Expected to contain this initially
+    const redirected = !currentUrl.includes(initialUrl);
+
+    // Check for success (redirect to login)
+    const isSuccess = currentUrl.includes("login");
+
+    // Get validation errors
+    const validationErrors = await this.getValidationErrors();
+    const hasValidationErrors = Object.keys(validationErrors).length > 0;
+
+    // Check for server errors
+    let serverError: string | undefined;
+    let hasServerError = false;
+
+    try {
+      const serverErrorElement = await this.page
+        .locator('[data-test="register-error"]')
+        .first();
+      if (await serverErrorElement.isVisible({ timeout: 1000 })) {
+        serverError = (await serverErrorElement.textContent()) || undefined;
+        hasServerError = !!serverError;
+      }
+    } catch (error) {
+      // No server error element found
+    }
+
+    // Also check for any visible error messages in the page
+    if (!hasServerError) {
+      try {
+        const errorElements = await this.page
+          .locator('.alert-danger, .error-message, [class*="error"]')
+          .all();
+        for (const element of errorElements) {
+          if (await element.isVisible()) {
+            const errorText = await element.textContent();
+            if (errorText && errorText.trim()) {
+              serverError = errorText.trim();
+              hasServerError = true;
+              break;
+            }
+          }
+        }
+      } catch (error) {
+        // No additional error elements found
+      }
+    }
+
+    return {
+      isSuccess,
+      hasValidationErrors,
+      hasServerError,
+      validationErrors,
+      serverError,
+      currentUrl,
+      redirected,
+    };
+  }
+
+  /**
+   * Submits the registration form (legacy method for backward compatibility)
    */
   async submitForm(): Promise<void> {
     await this.page.click('[data-test="register-submit"]');
   }
 
   /**
-   * Waits for form submission to complete
+   * Waits for form submission to complete (enhanced version)
    * @param timeout - Maximum wait time in milliseconds
    */
   async waitForSubmissionResult(timeout: number = 10000): Promise<void> {
     try {
-      // Wait for either success redirect or error message
+      console.log("⏳ Waiting for submission result...");
+
+      // Wait for either success redirect, error message, or network idle
       await Promise.race([
         this.page.waitForURL(/login/, { timeout }),
         this.page.waitForSelector('[data-test="register-error"]', { timeout }),
+        this.page.waitForSelector('[class*="error"], [data-test*="-error"]', {
+          timeout,
+        }),
         this.page.waitForLoadState("networkidle", { timeout }),
       ]);
+
+      // Additional wait to ensure UI updates are complete
+      await this.page.waitForTimeout(1000);
+
+      console.log("✅ Submission result received");
     } catch (error) {
-      console.log("Form submission completed or timed out");
+      console.log("⏱️ Submission wait completed or timed out");
     }
   }
 
@@ -132,9 +260,11 @@ export class FormHelpers {
   }
 
   /**
-   * Clears all form fields
+   * Clears all form fields with better error handling
    */
   async clearForm(): Promise<void> {
+    console.log("🧹 Clearing registration form...");
+
     const fields = [
       '[data-test="first-name"]',
       '[data-test="last-name"]',
@@ -149,8 +279,22 @@ export class FormHelpers {
     ];
 
     for (const field of fields) {
-      await this.page.fill(field, "");
+      try {
+        await this.page.fill(field, "");
+      } catch (error) {
+        // Continue clearing other fields even if one fails
+        console.log(`⚠️ Could not clear field ${field}: ${error}`);
+      }
     }
+
+    // Reset country dropdown to default
+    try {
+      await this.page.selectOption('[data-test="country"]', "");
+    } catch (error) {
+      console.log("⚠️ Could not reset country dropdown");
+    }
+
+    console.log("✅ Form cleared");
   }
 
   /**

@@ -1,6 +1,6 @@
 import { test as base } from "@playwright/test";
 import { BrowserSetupHelper } from "./utils/browser-setup-helper";
-import { TestConfigManager } from "./utils/test-config";
+import { TestConfigManager } from "./utils/registration-test-config";
 
 /**
  * Extended test fixture that ensures proper browser setup and configuration loading

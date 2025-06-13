@@ -1,8 +1,11 @@
-import { TestConfig } from "../types/test-data.types";
+import { TestConfig } from "../types/registration-test-data.types";
 import {
   RUN_ALL_REGISTRATION_TESTS,
   REGISTER_TEST_CASES,
   REGISTRATION_TEST_DATA_FILE,
+  EXCLUDE_TEST_CASES,
+  EXCLUDE_BY_PREFIX,
+  EXCLUDE_BY_SUFFIX,
 } from "../config/registration-test-config";
 
 export class TestConfigManager {
@@ -10,6 +13,9 @@ export class TestConfigManager {
     runAll: RUN_ALL_REGISTRATION_TESTS,
     testCaseIds: REGISTER_TEST_CASES,
     testDataFile: REGISTRATION_TEST_DATA_FILE,
+    excludeTestCases: EXCLUDE_TEST_CASES,
+    excludeByPrefix: EXCLUDE_BY_PREFIX,
+    excludeBySuffix: EXCLUDE_BY_SUFFIX,
   };
 
   /**
@@ -46,6 +52,26 @@ export class TestConfigManager {
   }
 
   /**
+   * Sets exclude patterns for when running all tests
+   * @param excludeConfig - Exclude configuration
+   */
+  static setExcludePatterns(excludeConfig: {
+    testCases?: string[];
+    prefixes?: string[];
+    suffixes?: string[];
+  }): void {
+    if (excludeConfig.testCases) {
+      this.config.excludeTestCases = excludeConfig.testCases;
+    }
+    if (excludeConfig.prefixes) {
+      this.config.excludeByPrefix = excludeConfig.prefixes;
+    }
+    if (excludeConfig.suffixes) {
+      this.config.excludeBySuffix = excludeConfig.suffixes;
+    }
+  }
+
+  /**
    * Loads configuration from TypeScript config file (default behavior)
    * Also supports environment variable override for CI/CD compatibility
    */
@@ -55,12 +81,18 @@ export class TestConfigManager {
       runAll: RUN_ALL_REGISTRATION_TESTS,
       testCaseIds: REGISTER_TEST_CASES,
       testDataFile: REGISTRATION_TEST_DATA_FILE,
+      excludeTestCases: EXCLUDE_TEST_CASES,
+      excludeByPrefix: EXCLUDE_BY_PREFIX,
+      excludeBySuffix: EXCLUDE_BY_SUFFIX,
     };
 
     // Allow environment variable override for CI/CD systems
     const envTestCases = process.env.REGISTER_TEST_CASES;
     const envRunAll = process.env.RUN_ALL_REGISTRATION_TESTS;
     const envDataFile = process.env.REGISTRATION_TEST_DATA_FILE;
+    const envExcludeCases = process.env.EXCLUDE_REGISTER_TEST_CASES;
+    const envExcludePrefix = process.env.EXCLUDE_REGISTER_BY_PREFIX;
+    const envExcludeSuffix = process.env.EXCLUDE_REGISTER_BY_SUFFIX;
 
     if (envTestCases) {
       const testCaseIds = envTestCases.split(",").map((id) => id.trim());
@@ -78,6 +110,28 @@ export class TestConfigManager {
     if (envDataFile) {
       this.config.testDataFile = envDataFile;
       console.log("🔧 Overriding test data file from environment variable");
+    }
+
+    // Handle exclude environment variables
+    if (envExcludeCases) {
+      this.config.excludeTestCases = envExcludeCases
+        .split(",")
+        .map((id) => id.trim());
+      console.log("🔧 Overriding exclude test cases from environment variable");
+    }
+
+    if (envExcludePrefix) {
+      this.config.excludeByPrefix = envExcludePrefix
+        .split(",")
+        .map((prefix) => prefix.trim());
+      console.log("🔧 Overriding exclude prefixes from environment variable");
+    }
+
+    if (envExcludeSuffix) {
+      this.config.excludeBySuffix = envExcludeSuffix
+        .split(",")
+        .map((suffix) => suffix.trim());
+      console.log("🔧 Overriding exclude suffixes from environment variable");
     }
   }
 
@@ -132,6 +186,43 @@ export class TestConfigManager {
     } else if (!this.config.runAll) {
       console.log("║ ⚠️  No specific test cases selected");
     }
+
+    // Show exclude configuration when running all tests
+    if (this.config.runAll) {
+      const hasExcludes =
+        (this.config.excludeTestCases?.length || 0) > 0 ||
+        (this.config.excludeByPrefix?.length || 0) > 0 ||
+        (this.config.excludeBySuffix?.length || 0) > 0;
+
+      if (hasExcludes) {
+        console.log("║ Exclude Configuration:");
+
+        if (this.config.excludeTestCases?.length) {
+          console.log(
+            `║   🚫 Test Cases (${this.config.excludeTestCases.length}):`
+          );
+          this.config.excludeTestCases.forEach((id, index) => {
+            const isLast = index === this.config.excludeTestCases!.length - 1;
+            console.log(`║      ${isLast ? "└─" : "├─"} ${id}`);
+          });
+        }
+
+        if (this.config.excludeByPrefix?.length) {
+          console.log(
+            `║   🚫 By Prefix: ${this.config.excludeByPrefix.join(", ")}`
+          );
+        }
+
+        if (this.config.excludeBySuffix?.length) {
+          console.log(
+            `║   🚫 By Suffix: ${this.config.excludeBySuffix.join(", ")}`
+          );
+        }
+      } else {
+        console.log("║ No exclusions configured");
+      }
+    }
+
     console.log("╚══════════════════════════════════════╝");
   }
 }

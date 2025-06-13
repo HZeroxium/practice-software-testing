@@ -1,8 +1,8 @@
 import { test, expect, Page } from "@playwright/test";
-import { AdminDataReader } from "./utils/admin-data-reader";
-import { AdminFormHelpers } from "./utils/admin-form-helpers";
+import { AdminDataReader } from "./utils/admin-add-product-data-reader";
+import { AdminFormHelpers } from "./utils/admin-add-product-form-helpers";
 import { AdminAuthHelper } from "./utils/admin-auth-helper";
-import { AdminTestConfigManager } from "./utils/admin-test-config";
+import { AdminTestConfigManager } from "./utils/admin-add-product-test-config";
 import {
   AddProductTestData,
   AdminTestResult,

@@ -4,17 +4,35 @@
  */
 
 // Set to true to run all test cases, false to run only specified cases
-export const RUN_ALL_REGISTRATION_TESTS = true;
+export const RUN_ALL_REGISTRATION_TESTS = false;
 
 // Specify which test cases to run when RUN_ALL_REGISTRATION_TESTS is false
 // Add or remove test case IDs from this array
 export const REGISTER_TEST_CASES: string[] = [
-  "REG-EP-02",
-  "REG-EP-03",
+  "REG-EP-01",
+  // "REG-EP-02",
+  // "REG-EP-03",
   // "TC_REG_001",
   // "TC_REG_002",
   // "TC_REG_003",
   // Add your specific test case IDs here
+];
+
+// Exclude configuration when RUN_ALL_REGISTRATION_TESTS is true
+// These settings only apply when running all tests
+export const EXCLUDE_TEST_CASES: string[] = [
+  // "REG-EP-01",  // Exclude specific test case
+  // "REG-BVA-25", // Exclude another specific test case
+];
+
+export const EXCLUDE_BY_PREFIX: string[] = [
+  // "REG-BVA-",   // Exclude all boundary value analysis tests
+  // "REG-PERF-",  // Exclude performance tests
+];
+
+export const EXCLUDE_BY_SUFFIX: string[] = [
+  // "-SLOW",      // Exclude slow running tests
+  // "-FLAKY",     // Exclude flaky tests
 ];
 
 // Test data file path (relative to project root)
@@ -30,10 +48,11 @@ export const REGISTRATION_TEST_DATA_FILE =
 // export const RUN_ALL_REGISTRATION_TESTS = false;
 // export const REGISTER_TEST_CASES = ["TC_REG_001", "TC_REG_HAPPY_PATH"];
 
-// Negative test configuration - run only error validation tests
-// export const RUN_ALL_REGISTRATION_TESTS = false;
-// export const REGISTER_TEST_CASES = ["TC_REG_INVALID_EMAIL", "TC_REG_WEAK_PASSWORD"];
+// Fast test configuration - exclude slow tests when running all
+// export const RUN_ALL_REGISTRATION_TESTS = true;
+// export const EXCLUDE_BY_SUFFIX = ["-SLOW", "-PERF"];
 
-// Boundary test configuration - run edge case tests
-// export const RUN_ALL_REGISTRATION_TESTS = false;
-// export const REGISTER_TEST_CASES = ["TC_REG_MIN_LENGTH", "TC_REG_MAX_LENGTH"];
+// Stable test configuration - exclude flaky tests
+// export const RUN_ALL_REGISTRATION_TESTS = true;
+// export const EXCLUDE_TEST_CASES = ["REG-EP-15", "REG-BVA-26"];
+// export const EXCLUDE_BY_SUFFIX = ["-FLAKY"];

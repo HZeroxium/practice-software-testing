@@ -1,8 +1,11 @@
 import { test, expect, Page } from "@playwright/test";
-import { DataReader } from "./utils/data-reader";
-import { FormHelpers } from "./utils/form-helpers";
-import { TestConfigManager } from "./utils/test-config";
-import { RegistrationTestData, TestResult } from "./types/test-data.types";
+import { DataReader } from "./utils/registration-data-reader";
+import { FormHelpers } from "./utils/registration-form-helpers";
+import { TestConfigManager } from "./utils/registration-test-config";
+import {
+  RegistrationTestData,
+  TestResult,
+} from "./types/registration-test-data.types";
 
 // Load configuration from TypeScript files (with optional environment override)
 TestConfigManager.loadConfigFromEnvironment();
@@ -62,36 +65,37 @@ test.describe("Registration Feature - Data Driven Tests", () => {
           fullPage: true,
         });
 
-        // Submit the form
-        await formHelpers.submitForm();
+        // Submit the form and wait for initial response
+        await formHelpers.submitFormAndWait();
 
-        // Wait for submission result
-        await formHelpers.waitForSubmissionResult();
-
-        // Take screenshot after submission
+        // Take screenshot after submission with proper wait
         await page.screenshot({
           path: `test-results/screenshots/after-submit-${data.TestCaseID}.png`,
           fullPage: true,
         });
 
-        // Get validation errors (if any)
-        const validationErrors = await formHelpers.getValidationErrors();
+        // Get final submission status
+        const submissionResult = await formHelpers.getSubmissionResult();
 
-        if (Object.keys(validationErrors).length > 0) {
-          console.log("Validation Errors Found:", validationErrors);
-        }
+        // Log the results
+        console.log("Submission Result:", submissionResult);
 
-        // Check current URL to determine result
-        const currentUrl = page.url();
-
-        if (currentUrl.includes("login")) {
+        if (submissionResult.isSuccess) {
+          console.log("✅ Registration successful - redirected to login page");
+        } else if (submissionResult.hasValidationErrors) {
           console.log(
-            "✅ Registration appears successful - redirected to login page"
+            "⚠️ Registration failed with validation errors:",
+            submissionResult.validationErrors
           );
-        } else if (Object.keys(validationErrors).length > 0) {
-          console.log("⚠️ Registration failed with validation errors");
+        } else if (submissionResult.hasServerError) {
+          console.log(
+            "❌ Registration failed with server error:",
+            submissionResult.serverError
+          );
         } else {
-          console.log("ℹ️ Registration form submitted - no immediate feedback");
+          console.log(
+            "ℹ️ Registration status unclear - requires manual verification"
+          );
         }
 
         testResult.duration = Date.now() - startTime;

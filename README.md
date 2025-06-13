@@ -1,18 +1,17 @@
 [![Run Playwright Tests 🎭](https://github.com/testsmith-io/practice-software-testing/actions/workflows/run-tests.yml/badge.svg)](https://github.com/testsmith-io/practice-software-testing/actions/workflows/run-tests.yml) [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/testsmith-io/practice-software-testing)
 
-
 # Default accounts
 
-| First name | Last name | Role   | E-mail                                | Password   |
-|------------|-----------|--------|---------------------------------------|------------|
-| John       | Doe       | admin  | admin@practicesoftwaretesting.com     | welcome01  |
-| Jane       | Doe       | user   | customer@practicesoftwaretesting.com  | welcome01  |
-| Jack       | Howe      | user   | customer2@practicesoftwaretesting.com | welcome01  |
+| First name | Last name | Role  | E-mail                                | Password  |
+| ---------- | --------- | ----- | ------------------------------------- | --------- |
+| John       | Doe       | admin | admin@practicesoftwaretesting.com     | welcome01 |
+| Jane       | Doe       | user  | customer@practicesoftwaretesting.com  | welcome01 |
+| Jack       | Howe      | user  | customer2@practicesoftwaretesting.com | welcome01 |
 
 # URLs (hosted versions)
 
 | Description          | Application                                                                                    | API                                                                                                           | Swagger                                                                                                                  |
-|----------------------|------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| -------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | Sprint 1             | [https://v1.practicesoftwaretesting.com](https://v1.practicesoftwaretesting.com)               | [https://api-v1.practicesoftwaretesting.com](https://api-v1.practicesoftwaretesting.com/status)               | [https://api-v1.practicesoftwaretesting.com](https://api-v1.practicesoftwaretesting.com/api/documentation)               |
 | Sprint 2             | [https://v2.practicesoftwaretesting.com](https://v2.practicesoftwaretesting.com)               | [https://api-v2.practicesoftwaretesting.com](https://api-v2.practicesoftwaretesting.com/status)               | [https://api-v2.practicesoftwaretesting.com](https://api-v2.practicesoftwaretesting.com/api/documentation)               |
 | Sprint 3             | [https://v3.practicesoftwaretesting.com](https://v3.practicesoftwaretesting.com)               | [https://api-v3.practicesoftwaretesting.com](https://api-v3.practicesoftwaretesting.com/status)               | [https://api-v3.practicesoftwaretesting.com](https://api-v3.practicesoftwaretesting.com/api/documentation)               |
@@ -38,7 +37,7 @@ All images together are less than 1,5 GB.
 ## URL's (local version)
 
 | URL                                                                                | Description           |
-|------------------------------------------------------------------------------------|-----------------------|
+| ---------------------------------------------------------------------------------- | --------------------- |
 | [http://localhost:8091](http://localhost:8091)                                     | (REST) API            |
 | [http://localhost:8091/api/documentation](http://localhost:8091/api/documentation) | Swagger               |
 | [http://localhost:1080](http://localhost:1080)                                     | MailCatcher           |
@@ -119,3 +118,48 @@ an empty environment.
 If you find this project useful and want to support its ongoing development, please consider [supporting](https://testwithroy.com/b/support) it!
 
 I appreciate your support!
+
+## Database GUI Access
+
+You can access the database through multiple methods:
+
+### PHPMyAdmin (Recommended)
+
+- **URL**: [http://localhost:8000](http://localhost:8000)
+- **Username**: `root`
+- **Password**: `root`
+
+### Direct Database Connection
+
+For external database tools (like MySQL Workbench, DBeaver, etc.):
+
+- **Host**: `localhost`
+- **Port**: `3306`
+- **Database**: `practicesoftwaretesting`
+- **Username**: `root`
+- **Password**: `root`
+
+### Quick Commands
+
+```bash
+# View database GUI connection info
+npm run db:gui
+
+# Reset database to fresh state
+npm run db:reset
+
+# Check database migration status
+npm run db:status
+
+# Run registration tests with database reset
+npm run test:registration:clean
+```
+
+## Test Database Management
+
+The test framework now includes automatic database management:
+
+- **Automatic Reset**: Database is reset before each test case
+- **Data Preservation**: Default accounts are preserved during reset
+- **Clean State**: Each test runs with a fresh database state
+- **Error Detection**: Enhanced error detection for duplicate entries and validation issues

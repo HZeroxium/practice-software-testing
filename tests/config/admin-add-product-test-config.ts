@@ -15,6 +15,23 @@ export const ADMIN_TEST_CASES: string[] = [
   // Add your specific test case IDs here
 ];
 
+// Exclude configuration when RUN_ALL_ADMIN_TESTS is true
+// These settings only apply when running all tests
+export const EXCLUDE_ADMIN_TEST_CASES: string[] = [
+  // "ADMIN-PROD-15",  // Exclude specific test case
+  // "ADMIN-IMG-02",   // Exclude image upload test
+];
+
+export const EXCLUDE_ADMIN_BY_PREFIX: string[] = [
+  // "ADMIN-PERF-",    // Exclude performance tests
+  // "ADMIN-LOAD-",    // Exclude load tests
+];
+
+export const EXCLUDE_ADMIN_BY_SUFFIX: string[] = [
+  // "-SLOW",          // Exclude slow running tests
+  // "-MANUAL",        // Exclude manual verification tests
+];
+
 // Test data file path (relative to project root)
 export const ADMIN_TEST_DATA_FILE =
   "tests/data/input/admin_product_test_data.csv";
@@ -42,3 +59,11 @@ export const ADMIN_CREDENTIALS = {
 // Product image upload tests
 // export const RUN_ALL_ADMIN_TESTS = false;
 // export const ADMIN_TEST_CASES = ["TC_ADMIN_PRODUCT_IMAGE_UPLOAD", "TC_ADMIN_PRODUCT_NO_IMAGE"];
+
+// Fast execution - exclude slow tests
+// export const RUN_ALL_ADMIN_TESTS = true;
+// export const EXCLUDE_ADMIN_BY_SUFFIX = ["-SLOW", "-PERF"];
+
+// Core functionality only - exclude edge cases
+// export const RUN_ALL_ADMIN_TESTS = true;
+// export const EXCLUDE_ADMIN_BY_PREFIX = ["ADMIN-EDGE-", "ADMIN-STRESS-"];

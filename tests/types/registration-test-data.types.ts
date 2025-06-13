@@ -17,6 +17,10 @@ export interface TestConfig {
   testCaseIds?: string[];
   runAll?: boolean;
   testDataFile?: string;
+  // Exclude configuration (only applies when runAll is true)
+  excludeTestCases?: string[];
+  excludeByPrefix?: string[];
+  excludeBySuffix?: string[];
 }
 
 export interface TestResult {
@@ -24,4 +28,14 @@ export interface TestResult {
   status: "passed" | "failed" | "skipped";
   errorMessage?: string;
   duration?: number;
+}
+
+export interface SubmissionResult {
+  isSuccess: boolean;
+  hasValidationErrors: boolean;
+  hasServerError: boolean;
+  validationErrors: Record<string, string[]>;
+  serverError?: string;
+  currentUrl: string;
+  redirected: boolean;
 }

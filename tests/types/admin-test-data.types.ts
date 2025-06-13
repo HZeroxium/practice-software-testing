@@ -19,6 +19,10 @@ export interface AdminTestConfig {
     email: string;
     password: string;
   };
+  // Exclude configuration (only applies when runAll is true)
+  excludeTestCases?: string[];
+  excludeByPrefix?: string[];
+  excludeBySuffix?: string[];
 }
 
 export interface AdminTestResult {

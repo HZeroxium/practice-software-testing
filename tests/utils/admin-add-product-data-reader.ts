@@ -58,7 +58,7 @@ export class AdminDataReader {
   }
 
   /**
-   * Filters test data based on configuration
+   * Filters test data based on configuration with exclude support
    * @param testData - Array of test data
    * @param config - Test configuration
    * @returns Filtered test data
@@ -67,17 +67,55 @@ export class AdminDataReader {
     testData: AddProductTestData[],
     config: AdminTestConfig
   ): AddProductTestData[] {
-    if (
-      config.runAll ||
-      !config.testCaseIds ||
-      config.testCaseIds.length === 0
-    ) {
+    if (config.runAll) {
+      // When running all tests, apply exclude filters
+      return this.applyExcludeFilters(testData, config);
+    }
+
+    if (!config.testCaseIds || config.testCaseIds.length === 0) {
       return testData;
     }
 
+    // When running specific tests, only include the specified ones
     return testData.filter((data) =>
       config.testCaseIds!.includes(data.TestCaseID)
     );
+  }
+
+  /**
+   * Applies exclude filters to test data
+   * @param testData - Array of test data
+   * @param config - Test configuration with exclude options
+   * @returns Filtered test data with exclusions applied
+   */
+  private static applyExcludeFilters(
+    testData: AddProductTestData[],
+    config: AdminTestConfig
+  ): AddProductTestData[] {
+    return testData.filter((data) => {
+      const testCaseId = data.TestCaseID;
+
+      // Exclude specific test cases
+      if (config.excludeTestCases?.includes(testCaseId)) {
+        return false;
+      }
+
+      // Exclude by prefix
+      if (
+        config.excludeByPrefix?.some((prefix) => testCaseId.startsWith(prefix))
+      ) {
+        return false;
+      }
+
+      // Exclude by suffix
+      if (
+        config.excludeBySuffix?.some((suffix) => testCaseId.endsWith(suffix))
+      ) {
+        return false;
+      }
+
+      return true;
+    });
   }
 
   /**

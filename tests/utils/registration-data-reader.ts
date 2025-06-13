@@ -1,7 +1,10 @@
 import { parse } from "csv-parse/sync";
 import * as fs from "fs";
 import * as path from "path";
-import { RegistrationTestData, TestConfig } from "../types/test-data.types";
+import {
+  RegistrationTestData,
+  TestConfig,
+} from "../types/registration-test-data.types";
 
 export class DataReader {
   private static readonly DEFAULT_DATA_FILE =
@@ -44,7 +47,7 @@ export class DataReader {
   }
 
   /**
-   * Filters test data based on configuration
+   * Filters test data based on configuration with exclude support
    * @param testData - Array of test data
    * @param config - Test configuration
    * @returns Filtered test data
@@ -53,17 +56,55 @@ export class DataReader {
     testData: RegistrationTestData[],
     config: TestConfig
   ): RegistrationTestData[] {
-    if (
-      config.runAll ||
-      !config.testCaseIds ||
-      config.testCaseIds.length === 0
-    ) {
+    if (config.runAll) {
+      // When running all tests, apply exclude filters
+      return this.applyExcludeFilters(testData, config);
+    }
+
+    if (!config.testCaseIds || config.testCaseIds.length === 0) {
       return testData;
     }
 
+    // When running specific tests, only include the specified ones
     return testData.filter((data) =>
       config.testCaseIds!.includes(data.TestCaseID)
     );
+  }
+
+  /**
+   * Applies exclude filters to test data
+   * @param testData - Array of test data
+   * @param config - Test configuration with exclude options
+   * @returns Filtered test data with exclusions applied
+   */
+  private static applyExcludeFilters(
+    testData: RegistrationTestData[],
+    config: TestConfig
+  ): RegistrationTestData[] {
+    return testData.filter((data) => {
+      const testCaseId = data.TestCaseID;
+
+      // Exclude specific test cases
+      if (config.excludeTestCases?.includes(testCaseId)) {
+        return false;
+      }
+
+      // Exclude by prefix
+      if (
+        config.excludeByPrefix?.some((prefix) => testCaseId.startsWith(prefix))
+      ) {
+        return false;
+      }
+
+      // Exclude by suffix
+      if (
+        config.excludeBySuffix?.some((suffix) => testCaseId.endsWith(suffix))
+      ) {
+        return false;
+      }
+
+      return true;
+    });
   }
 
   /**
