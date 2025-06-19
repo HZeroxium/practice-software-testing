@@ -1,3 +1,5 @@
+// tests/utils/admin-add-product-data-reader.ts
+
 import { parse } from "csv-parse/sync";
 import * as fs from "fs";
 import * as path from "path";
@@ -7,7 +9,7 @@ import {
   NominalValues,
 } from "../types/admin-test-data.types";
 
-export class AdminDataReader {
+export class AdminAddProductDataReader {
   private static readonly DEFAULT_DATA_FILE =
     "tests/data/input/add_product_test_data.csv";
 

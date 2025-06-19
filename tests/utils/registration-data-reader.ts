@@ -1,12 +1,14 @@
+// tests/utils/registration-data-reader.ts
+
 import { parse } from "csv-parse/sync";
 import * as fs from "fs";
 import * as path from "path";
 import {
   RegistrationTestData,
-  TestConfig,
+  RegistrationTestConfig,
 } from "../types/registration-test-data.types";
 
-export class DataReader {
+export class RegistrationDataReader {
   private static readonly DEFAULT_DATA_FILE =
     "tests/data/input/register_test_data.csv";
 
@@ -54,7 +56,7 @@ export class DataReader {
    */
   static filterTestData(
     testData: RegistrationTestData[],
-    config: TestConfig
+    config: RegistrationTestConfig
   ): RegistrationTestData[] {
     if (config.runAll) {
       // When running all tests, apply exclude filters
@@ -79,7 +81,7 @@ export class DataReader {
    */
   private static applyExcludeFilters(
     testData: RegistrationTestData[],
-    config: TestConfig
+    config: RegistrationTestConfig
   ): RegistrationTestData[] {
     return testData.filter((data) => {
       const testCaseId = data.TestCaseID;

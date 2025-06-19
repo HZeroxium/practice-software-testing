@@ -1,3 +1,5 @@
+// tests/utils/admin-add-product-test-config.ts
+
 import { AdminTestConfig } from "../types/admin-test-data.types";
 import {
   RUN_ALL_ADMIN_TESTS,
@@ -9,7 +11,7 @@ import {
   EXCLUDE_ADMIN_BY_SUFFIX,
 } from "../config/admin-add-product-test-config";
 
-export class AdminTestConfigManager {
+export class AdminAddProductTestConfigManager {
   private static config: AdminTestConfig = {
     runAll: RUN_ALL_ADMIN_TESTS,
     testCaseIds: ADMIN_TEST_CASES,

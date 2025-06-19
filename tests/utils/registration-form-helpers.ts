@@ -1,7 +1,9 @@
-import { Page, Locator } from "@playwright/test";
+// tests/utils/registration-form-helpers.ts
+
+import { Page } from "@playwright/test";
 import { RegistrationTestData } from "../types/registration-test-data.types";
 
-export interface SubmissionResult {
+export interface RegistrationSubmissionResult {
   isSuccess: boolean;
   hasValidationErrors: boolean;
   hasServerError: boolean;
@@ -11,7 +13,7 @@ export interface SubmissionResult {
   redirected: boolean;
 }
 
-export class FormHelpers {
+export class RegistrationFormHelpers {
   constructor(private page: Page) {}
 
   /**
@@ -127,7 +129,7 @@ export class FormHelpers {
   /**
    * Gets comprehensive submission result information
    */
-  async getSubmissionResult(): Promise<SubmissionResult> {
+  async getSubmissionResult(): Promise<RegistrationSubmissionResult> {
     const currentUrl = this.page.url();
     const initialUrl = "register"; // Expected to contain this initially
     const redirected = !currentUrl.includes(initialUrl);
@@ -185,40 +187,6 @@ export class FormHelpers {
       currentUrl,
       redirected,
     };
-  }
-
-  /**
-   * Submits the registration form (legacy method for backward compatibility)
-   */
-  async submitForm(): Promise<void> {
-    await this.page.click('[data-test="register-submit"]');
-  }
-
-  /**
-   * Waits for form submission to complete (enhanced version)
-   * @param timeout - Maximum wait time in milliseconds
-   */
-  async waitForSubmissionResult(timeout: number = 10000): Promise<void> {
-    try {
-      console.log("⏳ Waiting for submission result...");
-
-      // Wait for either success redirect, error message, or network idle
-      await Promise.race([
-        this.page.waitForURL(/login/, { timeout }),
-        this.page.waitForSelector('[data-test="register-error"]', { timeout }),
-        this.page.waitForSelector('[class*="error"], [data-test*="-error"]', {
-          timeout,
-        }),
-        this.page.waitForLoadState("networkidle", { timeout }),
-      ]);
-
-      // Additional wait to ensure UI updates are complete
-      await this.page.waitForTimeout(1000);
-
-      console.log("✅ Submission result received");
-    } catch (error) {
-      console.log("⏱️ Submission wait completed or timed out");
-    }
   }
 
   /**

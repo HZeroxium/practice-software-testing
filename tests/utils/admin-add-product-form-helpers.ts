@@ -1,3 +1,5 @@
+// tests/utils/admin-add-product-form-helpers.ts
+
 import { Page } from "@playwright/test";
 import { AddProductTestData } from "../types/admin-test-data.types";
 
@@ -11,7 +13,7 @@ export interface AdminSubmissionResult {
   redirected: boolean;
 }
 
-export class AdminFormHelpers {
+export class AdminAddProductFormHelpers {
   constructor(private page: Page) {}
 
   /**

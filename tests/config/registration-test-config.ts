@@ -1,3 +1,5 @@
+// tests/config/registration-test-config.ts
+
 /**
  * Registration Test Configuration
  * Modify these arrays to control which test cases run

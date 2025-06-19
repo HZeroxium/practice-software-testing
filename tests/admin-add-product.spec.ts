@@ -1,33 +1,35 @@
-import { test, expect, Page } from "@playwright/test";
-import { AdminDataReader } from "./utils/admin-add-product-data-reader";
-import { AdminFormHelpers } from "./utils/admin-add-product-form-helpers";
+// tests/admin-add-product.spec.ts
+
+import { test, expect } from "@playwright/test";
+import { AdminAddProductDataReader } from "./utils/admin-add-product-data-reader";
+import { AdminAddProductFormHelpers } from "./utils/admin-add-product-form-helpers";
 import { AdminAuthHelper } from "./utils/admin-auth-helper";
-import { AdminTestConfigManager } from "./utils/admin-add-product-test-config";
+import { AdminAddProductTestConfigManager } from "./utils/admin-add-product-test-config";
 import { AdminTestResult } from "./types/admin-test-data.types";
 
 // Load configuration from environment
-AdminTestConfigManager.loadConfigFromEnvironment();
+AdminAddProductTestConfigManager.loadConfigFromEnvironment();
 
 // Read and filter test data
-const allTestData = AdminDataReader.readProductTestData();
-const testData = AdminDataReader.filterTestData(
+const allTestData = AdminAddProductDataReader.readProductTestData();
+const testData = AdminAddProductDataReader.filterTestData(
   allTestData,
-  AdminTestConfigManager.getConfig()
+  AdminAddProductTestConfigManager.getConfig()
 );
 
 // Print configuration
-AdminTestConfigManager.printConfig();
+AdminAddProductTestConfigManager.printConfig();
 
 test.describe("Admin Add Product Feature - Data Driven Tests", () => {
-  let formHelpers: AdminFormHelpers;
+  let formHelpers: AdminAddProductFormHelpers;
   let authHelper: AdminAuthHelper;
 
   test.beforeEach(async ({ page }) => {
-    formHelpers = new AdminFormHelpers(page);
+    formHelpers = new AdminAddProductFormHelpers(page);
     authHelper = new AdminAuthHelper(page);
 
     // Login as admin
-    const config = AdminTestConfigManager.getConfig();
+    const config = AdminAddProductTestConfigManager.getConfig();
     await authHelper.loginAsAdmin(config.adminCredentials);
 
     // Navigate to add product page
@@ -59,7 +61,8 @@ test.describe("Admin Add Product Feature - Data Driven Tests", () => {
         );
 
         // Replace nominal values with actual values
-        const processedData = AdminDataReader.replaceNominalValues(data);
+        const processedData =
+          AdminAddProductDataReader.replaceNominalValues(data);
         console.log(
           "📋 Processed Test Data:",
           JSON.stringify(processedData, null, 2)
@@ -148,13 +151,13 @@ test.describe("Admin Add Product Feature - Data Driven Tests", () => {
     console.log(`║ Total test cases available: ${allTestData.length}`);
     console.log(`║ Test cases executed: ${testData.length}`);
 
-    if (!AdminTestConfigManager.getConfig().runAll) {
+    if (!AdminAddProductTestConfigManager.getConfig().runAll) {
       console.log(
         `║ Selected test cases: ${testData.map((d) => d.TestCaseID).join(", ")}`
       );
     }
 
-    const config = AdminTestConfigManager.getConfig();
+    const config = AdminAddProductTestConfigManager.getConfig();
     console.log(`║ Admin credentials: ${config.adminCredentials?.email}`);
     console.log("║ Configuration source: TypeScript config files        ║");
     console.log("╚═══════════════════════════════════════════════════════╝\n");

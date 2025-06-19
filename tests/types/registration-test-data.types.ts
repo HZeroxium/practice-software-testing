@@ -1,3 +1,5 @@
+// tests/types/registration-test-data.types.ts
+
 export interface RegistrationTestData {
   TestCaseID: string;
   FirstName: string;
@@ -13,7 +15,7 @@ export interface RegistrationTestData {
   Password: string;
 }
 
-export interface TestConfig {
+export interface RegistrationTestConfig {
   testCaseIds?: string[];
   runAll?: boolean;
   testDataFile?: string;
@@ -23,14 +25,14 @@ export interface TestConfig {
   excludeBySuffix?: string[];
 }
 
-export interface TestResult {
+export interface RegistrationTestResult {
   testCaseId: string;
   status: "passed" | "failed" | "skipped";
   errorMessage?: string;
   duration?: number;
 }
 
-export interface SubmissionResult {
+export interface RegistrationSubmissionResult {
   isSuccess: boolean;
   hasValidationErrors: boolean;
   hasServerError: boolean;

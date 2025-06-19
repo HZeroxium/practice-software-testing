@@ -1,18 +1,17 @@
-import { test, expect, Page } from "@playwright/test";
-import { DataReader } from "./utils/registration-data-reader";
-import { FormHelpers } from "./utils/registration-form-helpers";
+// tests/registration.spec.ts
+
+import { test, expect } from "@playwright/test";
+import { RegistrationDataReader } from "./utils/registration-data-reader";
+import { RegistrationFormHelpers } from "./utils/registration-form-helpers";
 import { TestConfigManager } from "./utils/registration-test-config";
-import {
-  RegistrationTestData,
-  TestResult,
-} from "./types/registration-test-data.types";
+import { RegistrationTestResult } from "./types/registration-test-data.types";
 
 // Load configuration from TypeScript files (with optional environment override)
 TestConfigManager.loadConfigFromEnvironment();
 
 // Read and filter test data
-const allTestData = DataReader.readTestData();
-const testData = DataReader.filterTestData(
+const allTestData = RegistrationDataReader.readTestData();
+const testData = RegistrationDataReader.filterTestData(
   allTestData,
   TestConfigManager.getConfig()
 );
@@ -21,10 +20,10 @@ const testData = DataReader.filterTestData(
 TestConfigManager.printConfig();
 
 test.describe("Registration Feature - Data Driven Tests", () => {
-  let formHelpers: FormHelpers;
+  let formHelpers: RegistrationFormHelpers;
 
   test.beforeEach(async ({ page }) => {
-    formHelpers = new FormHelpers(page);
+    formHelpers = new RegistrationFormHelpers(page);
 
     // Navigate to registration page
     await page.goto("/#/auth/register");
@@ -37,7 +36,7 @@ test.describe("Registration Feature - Data Driven Tests", () => {
   // Generate a test for each data row
   for (const data of testData) {
     test(`Registration Test - ${data.TestCaseID}`, async ({ page }) => {
-      const testResult: TestResult = {
+      const testResult: RegistrationTestResult = {
         testCaseId: data.TestCaseID,
         status: "passed",
       };

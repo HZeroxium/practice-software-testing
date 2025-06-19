@@ -1,4 +1,6 @@
-import { TestConfig } from "../types/registration-test-data.types";
+// tests/utils/registration-test-config.ts
+
+import { RegistrationTestConfig } from "../types/registration-test-data.types";
 import {
   RUN_ALL_REGISTRATION_TESTS,
   REGISTER_TEST_CASES,
@@ -9,7 +11,7 @@ import {
 } from "../config/registration-test-config";
 
 export class TestConfigManager {
-  private static config: TestConfig = {
+  private static config: RegistrationTestConfig = {
     runAll: RUN_ALL_REGISTRATION_TESTS,
     testCaseIds: REGISTER_TEST_CASES,
     testDataFile: REGISTRATION_TEST_DATA_FILE,
@@ -22,7 +24,7 @@ export class TestConfigManager {
    * Sets the test configuration
    * @param config - Test configuration object
    */
-  static setConfig(config: Partial<TestConfig>): void {
+  static setConfig(config: Partial<RegistrationTestConfig>): void {
     this.config = { ...this.config, ...config };
   }
 
@@ -30,7 +32,7 @@ export class TestConfigManager {
    * Gets the current test configuration
    * @returns Current test configuration
    */
-  static getConfig(): TestConfig {
+  static getConfig(): RegistrationTestConfig {
     return { ...this.config };
   }
 

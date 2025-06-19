@@ -1,3 +1,5 @@
+// tests/types/admin-test-data.types.ts
+
 export interface AddProductTestData {
   TestCaseID: string;
   Name: string;

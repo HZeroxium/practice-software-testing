@@ -1,3 +1,5 @@
+// tests/config/admin-add-product-test-config.ts
+
 /**
  * Admin Product Test Configuration
  * Modify these arrays to control which test cases run
