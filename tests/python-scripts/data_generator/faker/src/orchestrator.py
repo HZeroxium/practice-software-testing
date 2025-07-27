@@ -3,6 +3,7 @@ Main orchestrator for the data generation process.
 Coordinates all generators and manages dependencies between tables.
 """
 
+import sys
 import time
 from pathlib import Path
 from typing import Dict, List, Any, Optional
@@ -22,6 +23,8 @@ from .generators import (
     InvoiceItemGenerator,
     PaymentGenerator,
 )
+from .data_validator import DataValidator
+from .file_organizer import FileOrganizer
 
 
 class DataGenerationOrchestrator:
@@ -33,6 +36,9 @@ class DataGenerationOrchestrator:
         self._setup_faker()
         self._setup_generators()
         self.generated_data: Dict[str, List[Dict[str, Any]]] = {}
+
+        # Initialize file organizer
+        self.file_organizer = FileOrganizer(Path(self.config.output_directory))
 
     def _setup_faker(self) -> None:
         """Setup Faker with custom providers and seed."""
@@ -87,9 +93,22 @@ class DataGenerationOrchestrator:
         self._generate_invoice_items()
         self._generate_payments()
 
-        # Phase 4: Save all data to CSV files
+        # Phase 4: Save all data to CSV files (temporarily to base directory)
         print("\n💾 Phase 4: Saving data to CSV files...")
         self._save_all_data()
+
+        # Phase 5: Validate generated data
+        print("\n🔍 Phase 5: Validating data integrity...")
+        is_valid = self._validate_generated_data()
+
+        if not is_valid:
+            print("\n❌ Data validation failed! Stopping pipeline.")
+            print("💡 Please check the validation errors above and try again.")
+            sys.exit(1)
+
+        # Phase 6: Organize files into proper directory structure
+        print("\n📁 Phase 6: Organizing output files...")
+        self._organize_output_files()
 
         end_time = time.time()
 
@@ -120,7 +139,10 @@ class DataGenerationOrchestrator:
         """Generate product image data."""
         self.generated_data["product_images"] = self.generators[
             "product_images"
-        ].generate(self.config.num_product_images)
+        ].generate(
+            count=self.config.num_product_images,
+            categories=self.generated_data["categories"],
+        )
 
     def _generate_products(self) -> None:
         """Generate product data."""
@@ -191,6 +213,59 @@ class DataGenerationOrchestrator:
                     self.generated_data[table_name], filename
                 )
 
+    def _validate_generated_data(self) -> bool:
+        """Validate the generated data for consistency and integrity."""
+        # Use the base output directory (where CSVs are temporarily saved)
+        validator = DataValidator(Path(self.config.output_directory))
+        is_valid, errors = validator.validate_all_data()
+
+        # If validation fails, save error report
+        if not is_valid:
+            self._save_validation_errors(errors)
+
+        return is_valid
+
+    def _save_validation_errors(self, errors) -> None:
+        """Save validation errors to a report file."""
+        output_path = Path(self.config.output_directory)
+        error_report_path = output_path / "validation_errors.txt"
+
+        with open(error_report_path, "w", encoding="utf-8") as f:
+            f.write("VALIDATION ERROR REPORT\n")
+            f.write("=" * 50 + "\n")
+            f.write(f"Generated on: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"Total errors found: {len(errors)}\n\n")
+
+            # Group errors by type
+            error_types = {}
+            for error in errors:
+                if error.error_type not in error_types:
+                    error_types[error.error_type] = []
+                error_types[error.error_type].append(error)
+
+            for error_type, type_errors in error_types.items():
+                f.write(f"\n{error_type} ({len(type_errors)} errors):\n")
+                f.write("-" * 40 + "\n")
+                for error in type_errors:
+                    f.write(f"{error}\n")
+
+        print(f"💾 Validation errors saved to: {error_report_path}")
+
+    def _organize_output_files(self) -> None:
+        """Organize output files into structured directories and clean old backups."""
+        # Clean old backups before organizing new files
+        print("🧹 Cleaning old backup files...")
+        self.file_organizer.clean_old_backups(max_backups_per_file=5, max_age_days=7)
+
+        # Organize the current output files
+        organized_files = self.file_organizer.organize_all_files()
+
+        # Update our tracking of where files are located
+        self.csv_files_location = self.file_organizer.get_csv_directory()
+        self.sql_files_location = self.file_organizer.get_sql_directory()
+
+        return organized_files
+
     def _print_generation_summary(self, duration: float) -> None:
         """Print a comprehensive summary of the generation process."""
         print("\n" + "=" * 80)
@@ -250,12 +325,21 @@ class DataGenerationOrchestrator:
 
         print()
         print("📁 Output Files:")
-        output_path = Path(self.config.output_directory)
-        if output_path.exists():
-            for csv_file in output_path.glob("*.csv"):
+        # Check organized CSV directory
+        csv_dir = self.file_organizer.get_csv_directory()
+        if csv_dir.exists():
+            for csv_file in csv_dir.glob("*.csv"):
                 file_size = csv_file.stat().st_size
                 size_mb = file_size / (1024 * 1024)
-                print(f"  📄 {csv_file.name}: {size_mb:.2f} MB")
+                print(f"  📄 csv/{csv_file.name}: {size_mb:.2f} MB")
+
+        # Check SQL directory if it exists
+        sql_dir = self.file_organizer.get_sql_directory()
+        if sql_dir.exists() and any(sql_dir.glob("*.sql")):
+            for sql_file in sql_dir.glob("*.sql"):
+                file_size = sql_file.stat().st_size
+                size_mb = file_size / (1024 * 1024)
+                print(f"  🗂️  sql/{sql_file.name}: {size_mb:.2f} MB")
 
         print()
         print("✅ Data generation completed successfully!")

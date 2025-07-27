@@ -384,29 +384,121 @@ class BrandGenerator(BaseGenerator):
 
 
 class ProductImageGenerator(BaseGenerator):
-    """Generator for product image data."""
+    """Generator for product image data with Pixabay API integration."""
 
-    def generate(self, count: int, **kwargs) -> List[Dict[str, Any]]:
-        """Generate product image records."""
+    def __init__(self, config: GenerationConfig, faker_instance: Faker):
+        super().__init__(config, faker_instance)
+        self.pixabay_service = None
+        self._setup_pixabay_service()
+
+    def _setup_pixabay_service(self) -> None:
+        """Setup Pixabay service if API key is provided."""
+        if (
+            self.config.enable_pixabay_integration
+            and hasattr(self.config, "pixabay_api_key")
+            and self.config.pixabay_api_key
+        ):
+
+            try:
+                from .pixabay_service import create_pixabay_service
+                from pathlib import Path
+
+                cache_dir = (
+                    Path(self.config.output_directory) / "cache" / "pixabay"
+                    if self.config.pixabay_cache_enabled
+                    else None
+                )
+                self.pixabay_service = create_pixabay_service(
+                    api_key=self.config.pixabay_api_key, cache_dir=cache_dir
+                )
+                print(
+                    "🎨 Pixabay API integration enabled - fetching realistic product images"
+                )
+            except ImportError:
+                print(
+                    "⚠️ Pixabay service not available, using fallback image generation"
+                )
+        else:
+            print("ℹ️ Using synthetic image URLs (set pixabay_api_key for real images)")
+
+    def generate(
+        self, count: int, categories: List[Dict] = None, **kwargs
+    ) -> List[Dict[str, Any]]:
+        """Generate product image records with realistic images from Pixabay when possible."""
         images = []
+        pixabay_images_used = 0
+        fallback_images_used = 0
 
         print(f"🔄 Generating {count} product images...")
 
+        # If categories are provided, we can use them for better image matching
+        available_categories = categories or []
+
+        # Prefetch images for all categories to improve cache hit ratio
+        if self.pixabay_service and available_categories:
+            category_names = [cat["name"] for cat in available_categories]
+            self.pixabay_service.prefetch_category_images(
+                category_names, images_per_category=30
+            )
+
         for i in range(count):
-            # if i % 100 == 0:
-            #     print(f"  Progress: {i}/{count} images generated")
-
             iid = self.generate_ulid()
-            photographer = self.fake.photographer_name()
-            source = self.fake.photo_source()
 
-            # Generate realistic image title
-            tool_category = self.fake.tool_subcategory_name()
-            title = f"{tool_category} - Professional Tool Photography"
+            # Select a random category if available for image context
+            category_context = None
+            if available_categories:
+                category_context = self.fake.random_element(available_categories)
+                category_name = category_context["name"]
+            else:
+                # Use tool subcategory from providers as fallback
+                category_name = self.fake.tool_subcategory_name()
 
-            filename = self.fake.product_image_filename(tool_category)
-            source_url = self.fake.photo_url(source, filename)
-            photographer_url = self.fake.photographer_url(photographer, source)
+            # Try to get real image from Pixabay
+            pixabay_image = None
+            if self.pixabay_service:
+                try:
+                    pixabay_image = self.pixabay_service.get_image_for_category(
+                        category_name=category_name
+                    )
+                except Exception as e:
+                    print(f"⚠️ Pixabay API error: {e}")
+
+            if pixabay_image:
+                # Use real Pixabay image data
+                pixabay_images_used += 1
+
+                # Extract file extension from URL
+                url_parts = pixabay_image.web_format_url.split(".")
+                extension = f".{url_parts[-1]}" if len(url_parts) > 1 else ".jpg"
+
+                # Generate meaningful filename based on tags and category
+                primary_tag = (
+                    pixabay_image.tags.split(",")[0].strip()
+                    if pixabay_image.tags
+                    else category_name
+                )
+                filename = self.fake.product_image_filename(primary_tag)
+
+                # Use actual Pixabay metadata
+                photographer = pixabay_image.user
+                photographer_url = f"https://pixabay.com/users/{pixabay_image.user}-{pixabay_image.user_id}/"
+                source = "Pixabay"
+                source_url = pixabay_image.web_format_url
+                title = f"{primary_tag.title()} - Professional Tool Photography"
+
+            else:
+                # Use fallback synthetic data
+                fallback_images_used += 1
+
+                photographer = self.fake.photographer_name()
+                source = self.fake.photo_source()
+
+                # Generate realistic image title
+                title = f"{category_name} - Professional Tool Photography"
+
+                filename = self.fake.product_image_filename(category_name)
+                source_url = self.fake.photo_url(source, filename)
+                photographer_url = self.fake.photographer_url(photographer, source)
 
             image = ProductImageModel(
                 id=iid,
@@ -422,7 +514,19 @@ class ProductImageGenerator(BaseGenerator):
 
             images.append(image.model_dump())
 
+        # Print generation summary
         print(f"✅ Generated {len(images)} product images")
+        if self.pixabay_service:
+            print(f"  📸 Real Pixabay images: {pixabay_images_used}")
+            print(f"  🎭 Fallback images: {fallback_images_used}")
+
+            # Show performance stats
+            stats = self.pixabay_service.get_performance_stats()
+            if stats["total_requests"] > 0:
+                print(
+                    f"  📊 API efficiency: {stats['cache_hit_ratio']}% cache hit ratio"
+                )
+
         return images
 
 

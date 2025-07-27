@@ -4,7 +4,7 @@ Centralizes all configuration to avoid magic numbers and strings.
 """
 
 from enum import Enum
-from typing import Dict
+from typing import Dict, Optional
 from pydantic import BaseModel, Field
 
 
@@ -39,21 +39,19 @@ class GenerationConfig(BaseModel):
     """Configuration for data generation."""
 
     # Record counts
-    num_users: int = Field(default=1000, description="Number of users to generate")
+    num_users: int = Field(default=100, description="Number of users to generate")
     num_categories: int = Field(
-        default=1000, description="Number of categories to generate"
+        default=10, description="Number of categories to generate"
     )
     num_brands: int = Field(default=500, description="Number of brands to generate")
     num_product_images: int = Field(
-        default=500, description="Number of product images to generate"
+        default=300, description="Number of product images to generate"
     )
-    num_products: int = Field(
-        default=1000, description="Number of products to generate"
-    )
+    num_products: int = Field(default=300, description="Number of products to generate")
     num_favorites: int = Field(
         default=2000, description="Number of favorites to generate"
     )
-    num_invoices: int = Field(default=800, description="Number of invoices to generate")
+    num_invoices: int = Field(default=100, description="Number of invoices to generate")
     num_invoice_items: int = Field(
         default=1500, description="Number of invoice items to generate"
     )
@@ -128,6 +126,17 @@ class GenerationConfig(BaseModel):
     # Randomization seed
     random_seed: int = Field(
         default=42, description="Seed for reproducible randomization"
+    )
+
+    # External API settings
+    pixabay_api_key: Optional[str] = Field(
+        default=None, description="Pixabay API key for realistic product images"
+    )
+    enable_pixabay_integration: bool = Field(
+        default=True, description="Enable Pixabay API integration for realistic images"
+    )
+    pixabay_cache_enabled: bool = Field(
+        default=True, description="Enable caching for Pixabay images"
     )
 
 

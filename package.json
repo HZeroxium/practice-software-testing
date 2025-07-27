@@ -27,7 +27,8 @@
     "db:gui": "echo 'PHPMyAdmin available at: http://localhost:8000 (root/root)' && echo 'Direct DB connection: localhost:3306 (root/root)'",
     "docker:start": "docker-compose up -d",
     "docker:stop": "docker-compose down",
-    "docker:logs": "docker-compose logs -f laravel-api"
+    "docker:logs": "docker-compose logs -f laravel-api",
+    "test": "npx playwright test --headed"
   },
   "keywords": [
     "playwright",

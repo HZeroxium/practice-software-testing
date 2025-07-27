@@ -1,0 +1,24 @@
+{
+  "name": "mockaroo-categories-generator",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "node src/test/validate-data.js",
+    "generate": "node src/main.js",
+    "start": "node src/main.js",
+    "validate": "node src/test/validate-data.js"
+  },
+  "keywords": [
+    "mockaroo",
+    "data-generator",
+    "categories",
+    "testing"
+  ],
+  "author": "Software Testing Team",
+  "license": "ISC",
+  "description": "Mockaroo-based data generator for categories table with realistic tool categories",
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "mockaroo": "^1.0.2"
+  }
+}
