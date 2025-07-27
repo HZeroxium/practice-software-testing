@@ -6,7 +6,8 @@
     "test": "node src/test/validate-data.js",
     "generate": "node src/main.js",
     "start": "node src/main.js",
-    "validate": "node src/test/validate-data.js"
+    "validate": "node src/test/validate-data.js",
+    "generate-sql": "node -e \"const {generateSQLFromCSV, writeSQLFile} = require('./src/utils/sql-generator'); const path = require('path'); const csvPath = path.join(__dirname, 'output', 'categories.csv'); const sqlScript = generateSQLFromCSV(csvPath, 'categories'); writeSQLFile(csvPath.replace('.csv', '.sql'), sqlScript); console.log('✅ SQL script generated!');\""
   },
   "keywords": [
     "mockaroo",
