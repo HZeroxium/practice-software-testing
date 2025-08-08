@@ -1,0 +1,47 @@
+test_case_id,title,endpoint,passed,exit_code,execution_time,assertion_errors
+CA-001,Get All Categories - Basic,unknown,True,0,2025-08-08T22:38:54.368449,
+CA-002,Get Categories with Pagination,unknown,True,0,2025-08-08T22:38:56.198356,
+CA-003,Get Categories with Parent Filter,unknown,True,0,2025-08-08T22:38:57.927059,
+CA-004,Get Categories with Search,unknown,True,0,2025-08-08T22:38:59.653454,
+CA-005,Get Categories with Sort,unknown,True,0,2025-08-08T22:39:01.322272,
+CA-006,Get Categories with Invalid Parent,unknown,True,0,2025-08-08T22:39:02.920508,
+CA-007,Get Categories with Non-existent Search,unknown,True,0,2025-08-08T22:39:04.708409,
+CA-008,Get Categories with Special Characters,unknown,True,0,2025-08-08T22:39:06.354150,
+CA-009,Get Categories with Large Page Size,unknown,True,0,2025-08-08T22:39:08.085694,
+CA-010,Get Categories with Invalid Page,unknown,False,1,2025-08-08T22:39:09.777579,1.  AssertionError  Status code is 422
+CA-011,Get Categories with Multiple Parameters,unknown,True,0,2025-08-08T22:39:11.502010,
+CA-012,Get Categories with Root Level Filter,unknown,True,0,2025-08-08T22:39:13.242126,
+BR-001,Get All Brands - Basic,unknown,True,0,2025-08-08T22:39:14.962999,
+BR-002,Get Brands with Pagination,unknown,True,0,2025-08-08T22:39:16.627582,
+BR-003,Get Brands with Invalid Page,unknown,False,1,2025-08-08T22:39:18.367401,1.  AssertionError  Status code is 422
+BR-004,Get Brands with Large Page Size,unknown,True,0,2025-08-08T22:39:20.075157,
+BR-005,Get Brands with Search,unknown,True,0,2025-08-08T22:39:21.698079,
+BR-006,Get Brands with Non-existent Search,unknown,True,0,2025-08-08T22:39:23.341991,
+BR-007,Get Brands with Special Characters,unknown,True,0,2025-08-08T22:39:24.972407,
+BR-008,Get Brands with Sort,unknown,True,0,2025-08-08T22:39:26.788504,
+BR-009,Get Brands with Invalid Sort Field,unknown,False,1,2025-08-08T22:39:28.626975,1.  AssertionError  Status code is 422
+BR-010,Get Brands with Multiple Parameters,unknown,True,0,2025-08-08T22:39:30.339804,
+BR-POST-001,Create Brand - Valid Data,unknown,False,1,2025-08-08T22:39:32.452365,1.  AssertionError  Status code is 200; 2.  AssertionError  Response structure is valid; 3.  AssertionError  Created brand has required properties
+BR-POST-002,Create Brand - Missing Name,unknown,False,1,2025-08-08T22:39:34.114831,1.  AssertionError  Status code is 200; 2.  AssertionError  Response structure is valid; 3.  AssertionError  Created brand has required properties
+BR-POST-003,Create Brand - Empty Name,unknown,False,1,2025-08-08T22:39:35.763901,1.  AssertionError  Status code is 200; 2.  AssertionError  Response structure is valid; 3.  AssertionError  Created brand has required properties
+BR-POST-004,Create Brand - Duplicate Name,unknown,False,1,2025-08-08T22:39:37.427157,1.  AssertionError  Status code is 200; 2.  AssertionError  Response structure is valid; 3.  AssertionError  Created brand has required properties
+BR-POST-005,Create Brand - Long Name,unknown,False,1,2025-08-08T22:39:39.181291,1.  AssertionError  Status code is 200; 2.  AssertionError  Response structure is valid; 3.  AssertionError  Created brand has required properties
+BR-POST-006,Create Brand - Special Characters,unknown,False,1,2025-08-08T22:39:40.984585,1.  AssertionError  Status code is 200; 2.  AssertionError  Response structure is valid; 3.  AssertionError  Created brand has required properties
+BR-POST-007,Create Brand - Missing Description,unknown,False,1,2025-08-08T22:39:42.756764,1.  AssertionError  Status code is 200; 2.  AssertionError  Response structure is valid; 3.  AssertionError  Created brand has required properties
+BR-POST-008,Create Brand - Invalid JSON,unknown,False,1,2025-08-08T22:39:44.503635,1.  AssertionError  Status code is 200; 2.  AssertionError  Response structure is valid; 3.  AssertionError  Created brand has required properties
+BR-POST-009,Create Brand - Extra Fields,unknown,False,1,2025-08-08T22:39:46.369853,1.  AssertionError  Status code is 200; 2.  AssertionError  Response structure is valid; 3.  AssertionError  Created brand has required properties
+BR-POST-010,Create Brand - Numeric Name,unknown,False,1,2025-08-08T22:39:48.136819,1.  AssertionError  Status code is 200; 2.  AssertionError  Response structure is valid; 3.  AssertionError  Created brand has required properties
+PR-001,Get All Products - Basic,unknown,True,0,2025-08-08T22:39:52.423394,
+PR-002,Get Products with Pagination,unknown,True,0,2025-08-08T22:39:54.164473,
+PR-003,Get Products with Category Filter,unknown,True,0,2025-08-08T22:39:56.089271,
+PR-004,Get Products with Brand Filter,unknown,True,0,2025-08-08T22:39:57.849749,
+PR-005,Get Products with Price Range,unknown,True,0,2025-08-08T22:39:59.555033,
+PR-006,Get Products with Search,unknown,True,0,2025-08-08T22:40:01.225054,
+PR-007,Get Products with Sort by Price,unknown,True,0,2025-08-08T22:40:02.997825,
+PR-008,Get Products with Invalid Category,unknown,True,0,2025-08-08T22:40:04.713751,
+PR-009,Get Products with Multiple Filters,unknown,True,0,2025-08-08T22:40:06.362421,
+PR-010,Get Products with Large Page Size,unknown,True,0,2025-08-08T22:40:08.102795,
+PR-011,Get Products with Invalid Page,unknown,False,1,2025-08-08T22:40:09.879997,1.  AssertionError  Status code is 422
+PR-012,Get Products with Non-existent Search,unknown,True,0,2025-08-08T22:40:11.602344,
+PR-013,Get Products with Special Characters,unknown,True,0,2025-08-08T22:40:13.542657,
+PR-014,Get Products with Complex Query,unknown,True,0,2025-08-08T22:40:15.352736,

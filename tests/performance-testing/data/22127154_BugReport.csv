@@ -1,0 +1,22 @@
+BugID	Summary	Steps To Reproduce	Actual vs Expected Result	Screenshot	Priority	Affected Feature / Version
+PERF-001	Performance issue in load testing: response_time	"1. Execute load_test_product_listing_normal
+2. Monitor response_time
+3. Compare with expected values"	Actual: 3460.00, Expected: 2000.00	N/A	Medium	Product Listing
+PERF-002	Performance issue in load testing: throughput	"1. Execute load_test_product_listing_normal
+2. Monitor throughput
+3. Compare with expected values"	Actual: 0.24, Expected: 25.00	N/A	High	Product Listing
+PERF-003	Performance issue in load testing: throughput	"1. Execute load_test_product_listing_high
+2. Monitor throughput
+3. Compare with expected values"	Actual: 0.90, Expected: 25.00	N/A	High	Product Listing
+PERF-004	Performance issue in stress testing: throughput	"1. Execute stress_test_product_listing_moderate
+2. Monitor throughput
+3. Compare with expected values"	Actual: 2.31, Expected: 15.00	N/A	High	Product Listing
+PERF-005	Performance issue in stress testing: throughput	"1. Execute stress_test_product_listing_extreme
+2. Monitor throughput
+3. Compare with expected values"	Actual: 3.78, Expected: 15.00	N/A	High	Product Listing
+PERF-006	Performance issue in spike testing: throughput	"1. Execute spike_test_product_listing_short
+2. Monitor throughput
+3. Compare with expected values"	Actual: 1.15, Expected: 20.00	N/A	High	Product Listing
+PERF-007	Performance issue in spike testing: throughput	"1. Execute spike_test_product_listing_long
+2. Monitor throughput
+3. Compare with expected values"	Actual: 1.91, Expected: 20.00	N/A	High	Product Listing

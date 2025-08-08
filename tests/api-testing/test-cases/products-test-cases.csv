@@ -7,7 +7,7 @@ PR-005,Get Products with Price Range,API server is running,query_params=?min_pri
 PR-006,Get Products with Search,API server is running,query_params=?search=hammer,GET /products with search term,Status: 200,Test executed successfully,PASS
 PR-007,Get Products with Sort by Price,API server is running,query_params=?sort=price&order=desc,GET /products sorted by price,Status: 200,Test executed successfully,PASS
 PR-008,Get Products with Invalid Category,API server is running,query_params=?category=999,GET /products with invalid category,Status: 200,Test executed successfully,PASS
-PR-009,Get Products with Multiple Filters,API server is running,query_params=?category=7&brand=1&min_price=50&max_price=200,GET /products with multiple filters,Status: 200,Test failed: 1.  AssertionError  Response time is less than 3000ms,FAIL
+PR-009,Get Products with Multiple Filters,API server is running,query_params=?category=7&brand=1&min_price=50&max_price=200,GET /products with multiple filters,Status: 200,Test executed successfully,PASS
 PR-010,Get Products with Large Page Size,API server is running,query_params=?per_page=50,GET /products with large page size,Status: 200,Test executed successfully,PASS
 PR-011,Get Products with Invalid Page,API server is running,query_params=?page=0,GET /products with invalid page,Status: 422 or 400,Test failed: 1.  AssertionError  Status code is 422,FAIL
 PR-012,Get Products with Non-existent Search,API server is running,query_params=?search=nonexistent,GET /products with non-existent search,Status: 200,Test executed successfully,PASS
