@@ -820,9 +820,7 @@ class ReportGenerator:
 
     def write_reports_to_files(self, report_content: str):
         """Write report content directly to README.md and student-specific report file"""
-        print(
-            f"📝 Writing reports to README.md and {self.student_id}_APITesting.md..."
-        )
+        print(f"📝 Writing reports to README.md and {self.student_id}_APITesting.md...")
 
         # Write to README.md
         readme_file = self.project_root / "README.md"

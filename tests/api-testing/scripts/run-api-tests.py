@@ -49,6 +49,9 @@ class APITestRunner:
         self.test_results = {}
         self.bugs_found = []
 
+        # Default reporters (can be overridden via CLI)
+        self.selected_reporters: List[str] = ["cli", "json"]
+
     def check_dependencies(self) -> bool:
         """Check if required dependencies are installed"""
         try:
@@ -97,6 +100,21 @@ class APITestRunner:
                 print("❌ Newman is not installed or not in PATH")
                 print("  Install Newman: npm install -g newman")
                 return False
+
+            # Check optional reporters/plugins
+            if "htmlextra" in getattr(self, "selected_reporters", []):
+                try:
+                    subprocess.run(
+                        ["npm", "ls", "-g", "newman-reporter-htmlextra"],
+                        capture_output=True,
+                        text=True,
+                        check=True,
+                    )
+                    print("✓ newman-reporter-htmlextra is installed")
+                except Exception:
+                    print(
+                        "⚠ newman-reporter-htmlextra not found. Install with: npm install -g newman-reporter-htmlextra"
+                    )
 
             # Check if API is accessible
             try:
@@ -151,14 +169,65 @@ class APITestRunner:
         # Count tests in collection
         expected_test_count = self.count_tests_in_collection(collection_file)
 
+        # ==== Build reporters & export paths ====
+        reporters = getattr(self, "selected_reporters", ["cli", "json"])
+        reporters_arg = ",".join(reporters)
+
+        base_name = f"{collection_name}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+        export_paths = {
+            "json": str(self.test_results_dir / f"{base_name}.json"),
+            "html": str(self.test_results_dir / f"{base_name}.html"),
+            "htmlextra": str(self.test_results_dir / f"{base_name}.htmlextra.html"),
+            "junit": str(self.test_results_dir / f"{base_name}.xml"),
+            "csv": str(self.test_results_dir / f"{base_name}.csv"),
+        }
+
+        reporter_args: List[str] = []
+        if "json" in reporters:
+            reporter_args += ["--reporter-json-export", export_paths["json"]]
+        if "html" in reporters:
+            reporter_args += ["--reporter-html-export", export_paths["html"]]
+        if "htmlextra" in reporters:
+            reporter_args += ["--reporter-htmlextra-export", export_paths["htmlextra"]]
+        if "junit" in reporters:
+            reporter_args += ["--reporter-junit-export", export_paths["junit"]]
+        if "csv" in reporters:
+            reporter_args += ["--reporter-csv-export", export_paths["csv"]]
+
+        cli_opts: List[str] = []
+        if "cli" in reporters:
+            cli_opts = ["--reporter-cli-no-summary"]
+
         # Prepare Newman command - use PowerShell for Windows
         if platform.system() == "Windows":
-            # Use PowerShell command for Windows
-            cmd = [
-                "powershell",
-                "-Command",
-                f"newman run '{collection_file}' --environment '{self.project_root}/postman-collections/environment.json' --reporters cli --reporter-json-export '{self.test_results_dir}/{collection_name}-results.json' --timeout-request 10000 --timeout-script 10000",
+            nm_cmd = [
+                "newman",
+                "run",
+                f"'{collection_file}'",
+                "--environment",
+                f"'{self.project_root}/postman-collections/environment.json'",
+                "--reporters",
+                reporters_arg,
+                "--timeout-request",
+                "10000",
+                "--timeout-script",
+                "10000",
+                *cli_opts,
+                *[str(a) for a in reporter_args],
             ]
+            # Add CI-specific extra exports (preserve original intent)
+            if self.ci_mode and "json" in reporters:
+                nm_cmd += [
+                    "--reporter-json-export",
+                    f"'{self.test_results_dir}/{collection_name}-ci-results.json'",
+                ]
+            if self.ci_mode and "junit" in reporters:
+                nm_cmd += [
+                    "--reporter-junit-export",
+                    f"'{self.test_results_dir}/{collection_name}-ci.xml'",
+                ]
+
+            cmd = ["powershell", "-Command", " ".join(nm_cmd)]
         else:
             cmd = [
                 "newman",
@@ -167,24 +236,25 @@ class APITestRunner:
                 "--environment",
                 str(self.project_root / "postman-collections" / "environment.json"),
                 "--reporters",
-                "cli",
-                "--reporter-json-export",
-                str(self.test_results_dir / f"{collection_name}-results.json"),
-                "--reporter-cli-no-summary",
+                reporters_arg,
                 "--timeout-request",
                 "10000",
                 "--timeout-script",
                 "10000",
+                *cli_opts,
+                *reporter_args,
             ]
-
-        # Add CI-specific options
-        if self.ci_mode:
-            cmd.extend(
-                [
+            # Add CI-specific extra exports (preserve original intent)
+            if self.ci_mode and "json" in reporters:
+                cmd += [
                     "--reporter-json-export",
                     str(self.test_results_dir / f"{collection_name}-ci-results.json"),
                 ]
-            )
+            if self.ci_mode and "junit" in reporters:
+                cmd += [
+                    "--reporter-junit-export",
+                    str(self.test_results_dir / f"{collection_name}-ci.xml"),
+                ]
 
         try:
             start_time = time.time()
@@ -210,8 +280,11 @@ class APITestRunner:
             }
 
             # Try to parse JSON results if available
-            json_result_file = self.test_results_dir / f"{collection_name}-results.json"
-            if json_result_file.exists():
+            json_result_file: Optional[Path] = None
+            if "json" in reporters:
+                json_result_file = Path(export_paths["json"])
+
+            if json_result_file and json_result_file.exists():
                 try:
                     with open(json_result_file, "r") as f:
                         json_results = json.load(f)
@@ -251,7 +324,9 @@ class APITestRunner:
                     print(f"⚠ Warning: Could not parse JSON results: {e}")
 
             # If JSON file doesn't exist, try to extract bugs from stdout
-            if not json_result_file.exists() and result.returncode != 0:
+            if (
+                not json_result_file or not json_result_file.exists()
+            ) and result.returncode != 0:
                 # Parse stdout to extract failed assertions
                 stdout_lines = result.stdout.split("\n")
                 current_test = "Unknown"
@@ -384,6 +459,7 @@ class APITestRunner:
                 ]
             )
 
+            # Keep the original semantics of the bug rows
             for i, bug in enumerate(self.bugs_found, 1):
                 writer.writerow(
                     [
@@ -509,6 +585,16 @@ def main():
         nargs="+",
         help="Endpoints to exclude from testing (e.g., categories)",
     )
+    parser.add_argument(
+        "--reporters",
+        default="cli,json,htmlextra,junit,html,csv",
+        help="Comma-separated reporters: cli,json,html,htmlextra,junit,csv (default: cli,json,htmlextra,junit,html,csv )",
+    )
+    parser.add_argument(
+        "--report-dir",
+        default=None,
+        help="Directory to write reporter outputs (default: reports/test-results)",
+    )
 
     args = parser.parse_args()
 
@@ -519,6 +605,14 @@ def main():
         testing_mode = args.mode
 
     runner = APITestRunner(base_url=args.base_url, ci_mode=args.ci)
+
+    # Apply reporter settings from CLI
+    runner.selected_reporters = [
+        r.strip() for r in args.reporters.split(",") if r.strip()
+    ]
+    if args.report_dir:
+        runner.test_results_dir = Path(args.report_dir)
+        runner.test_results_dir.mkdir(parents=True, exist_ok=True)
 
     if args.check_deps:
         runner.check_dependencies()
