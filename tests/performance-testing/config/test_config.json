@@ -1,0 +1,148 @@
+{
+  "application": {
+    "frontend_url": "http://localhost:4200",
+    "api_url": "http://localhost:8091",
+    "database_url": "localhost:3306"
+  },
+  "jmeter": {
+    "base_dir": "scripts",
+    "results_dir": "results",
+    "data_dir": "data"
+  },
+  "test_scenarios": {
+    "product_listing": {
+      "enabled": true,
+      "description": "Product Listing Page Performance Testing - Quick Test",
+      "endpoints": {
+        "products": "/products",
+        "categories": "/categories",
+        "brands": "/brands"
+      },
+      "load_test_cases": [
+        {
+          "name": "load_test_product_listing_normal",
+          "enabled": true,
+          "threads": 1,
+          "ramp_up": 1,
+          "loops": 1,
+          "duration": 180,
+          "expected_response_time": 2000,
+          "expected_throughput": 25,
+          "expected_error_rate": 1.0,
+          "description": "Quick normal load testing for product listing page"
+        },
+        {
+          "name": "load_test_product_listing_high",
+          "enabled": true,
+          "threads": 1,
+          "ramp_up": 1,
+          "loops": 1,
+          "duration": 180,
+          "expected_response_time": 3000,
+          "expected_throughput": 35,
+          "expected_error_rate": 2.0,
+          "description": "Quick high load testing for product listing page"
+        }
+      ],
+      "stress_test_cases": [
+        {
+          "name": "stress_test_product_listing_moderate",
+          "enabled": true,
+          "threads": 1,
+          "ramp_up": 1,
+          "loops": 1,
+          "duration": 180,
+          "expected_response_time": 5000,
+          "expected_throughput": 15,
+          "expected_error_rate": 5.0,
+          "description": "Quick moderate stress testing for product listing page"
+        },
+        {
+          "name": "stress_test_product_listing_extreme",
+          "enabled": true,
+          "threads": 1,
+          "ramp_up": 1,
+          "loops": 1,
+          "duration": 180,
+          "expected_response_time": 8000,
+          "expected_throughput": 10,
+          "expected_error_rate": 10.0,
+          "description": "Quick extreme stress testing for product listing page"
+        }
+      ],
+      "spike_test_cases": [
+        {
+          "name": "spike_test_product_listing_short",
+          "enabled": true,
+          "baseline": {
+            "threads": 1,
+            "duration": 54,
+            "ramp_up": 5
+          },
+          "spike": {
+            "threads": 1,
+            "duration": 72,
+            "ramp_up": 7
+          },
+          "recovery": {
+            "threads": 1,
+            "duration": 54,
+            "ramp_up": 5
+          },
+          "expected_response_time": 3000,
+          "expected_throughput": 20,
+          "expected_error_rate": 2.0,
+          "description": "Quick short spike testing for product listing page",
+          "duration": 180
+        },
+        {
+          "name": "spike_test_product_listing_long",
+          "enabled": true,
+          "baseline": {
+            "threads": 1,
+            "duration": 54,
+            "ramp_up": 5
+          },
+          "spike": {
+            "threads": 1,
+            "duration": 72,
+            "ramp_up": 7
+          },
+          "recovery": {
+            "threads": 1,
+            "duration": 54,
+            "ramp_up": 5
+          },
+          "expected_response_time": 4000,
+          "expected_throughput": 30,
+          "expected_error_rate": 3.0,
+          "description": "Quick long spike testing for product listing page",
+          "duration": 180
+        }
+      ]
+    }
+  },
+  "reporting": {
+    "keep_recent_reports": 2,
+    "generate_html_reports": true,
+    "generate_csv_reports": true,
+    "cleanup_old_results": true
+  },
+  "thresholds": {
+    "load": {
+      "response_time": 2000,
+      "throughput": 25,
+      "error_rate": 1.0
+    },
+    "stress": {
+      "response_time": 5000,
+      "throughput": 15,
+      "error_rate": 5.0
+    },
+    "spike": {
+      "response_time": 3000,
+      "throughput": 20,
+      "error_rate": 2.0
+    }
+  }
+}
