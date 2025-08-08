@@ -1,0 +1,13 @@
+test_case_id,title,preconditions,inputs,test_steps,expected_result,actual_result,result
+CA-001,Get All Categories - Basic,API server is running,query_params=,GET /categories with no parameters,Status: 200, JSON array with categories,,PASS
+CA-002,Get Categories with Pagination,API server is running,query_params=?page=1&per_page=5,GET /categories with pagination,Status: 200, 5 categories returned,,PASS
+CA-003,Get Categories with Parent Filter,API server is running,query_params=?parent_id=1,GET /categories filtered by parent,Status: 200, filtered results,,PASS
+CA-004,Get Categories with Search,API server is running,query_params=?search=electronics,GET /categories with search term,Status: 200, filtered results,,PASS
+CA-005,Get Categories with Sort,API server is running,query_params=?sort=name&order=asc,GET /categories with sorting,Status: 200, sorted results,,PASS
+CA-006,Get Categories with Invalid Parent,API server is running,query_params=?parent_id=999,GET /categories with invalid parent,Status: 200, empty results,,PASS
+CA-007,Get Categories with Non-existent Search,API server is running,query_params=?search=nonexistent,GET /categories with non-existent search,Status: 200, empty results,,PASS
+CA-008,Get Categories with Special Characters,API server is running,query_params=?search=café,GET /categories with special characters,Status: 200, proper encoding,,PASS
+CA-009,Get Categories with Large Page Size,API server is running,query_params=?per_page=50,GET /categories with large page size,Status: 200, up to 50 categories,,PASS
+CA-010,Get Categories with Invalid Page,API server is running,query_params=?page=0,GET /categories with invalid page,Status: 422 or 400,,FAIL
+CA-011,Get Categories with Multiple Parameters,API server is running,query_params=?page=1&per_page=10&parent_id=1&search=electronics&sort=name&order=desc,GET /categories with multiple params,Status: 200, filtered and sorted,,PASS
+CA-012,Get Categories with Root Level Filter,API server is running,query_params=?parent_id=null,GET /categories with null parent,Status: 200, root level categories,,PASS

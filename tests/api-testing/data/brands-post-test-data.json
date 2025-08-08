@@ -1,0 +1,133 @@
+{
+  "endpoint": "brands",
+  "method": "POST",
+  "test_cases": [
+    {
+      "test_case_id": "BR-POST-001",
+      "title": "Create Brand - Valid Data",
+      "preconditions": "API server is running",
+      "request_body": {
+        "name": "Test Brand",
+        "description": "A test brand for API testing"
+      },
+      "test_steps": "POST /brands with valid brand data",
+      "expected_result": "Status: 201; JSON response with created brand",
+      "actual_result": "",
+      "result": ""
+    },
+    {
+      "test_case_id": "BR-POST-002",
+      "title": "Create Brand - Missing Name",
+      "preconditions": "API server is running",
+      "request_body": {
+        "description": "Test brand description"
+      },
+      "test_steps": "POST /brands without name field",
+      "expected_result": "Status: 422 or 400; validation error",
+      "actual_result": "",
+      "result": ""
+    },
+    {
+      "test_case_id": "BR-POST-003",
+      "title": "Create Brand - Empty Name",
+      "preconditions": "API server is running",
+      "request_body": {
+        "name": "",
+        "description": "Test brand description"
+      },
+      "test_steps": "POST /brands with empty name",
+      "expected_result": "Status: 422 or 400; validation error",
+      "actual_result": "",
+      "result": ""
+    },
+    {
+      "test_case_id": "BR-POST-004",
+      "title": "Create Brand - Duplicate Name",
+      "preconditions": "API server is running",
+      "request_body": {
+        "name": "Existing Brand",
+        "description": "Test brand description"
+      },
+      "test_steps": "POST /brands with duplicate name",
+      "expected_result": "Status: 409 or 422; conflict error",
+      "actual_result": "",
+      "result": ""
+    },
+    {
+      "test_case_id": "BR-POST-005",
+      "title": "Create Brand - Long Name",
+      "preconditions": "API server is running",
+      "request_body": {
+        "name": "This is a very long brand name that exceeds the maximum allowed length for brand names in the system",
+        "description": "Test brand description"
+      },
+      "test_steps": "POST /brands with long name",
+      "expected_result": "Status: 422 or 400; validation error",
+      "actual_result": "",
+      "result": ""
+    },
+    {
+      "test_case_id": "BR-POST-006",
+      "title": "Create Brand - Special Characters",
+      "preconditions": "API server is running",
+      "request_body": {
+        "name": "Café & Co.",
+        "description": "Brand with special characters: café, &, and ."
+      },
+      "test_steps": "POST /brands with special characters",
+      "expected_result": "Status: 201; proper handling of special characters",
+      "actual_result": "",
+      "result": ""
+    },
+    {
+      "test_case_id": "BR-POST-007",
+      "title": "Create Brand - Missing Description",
+      "preconditions": "API server is running",
+      "request_body": {
+        "name": "Brand Without Description"
+      },
+      "test_steps": "POST /brands without description",
+      "expected_result": "Status: 201; description should be optional",
+      "actual_result": "",
+      "result": ""
+    },
+    {
+      "test_case_id": "BR-POST-008",
+      "title": "Create Brand - Invalid JSON",
+      "preconditions": "API server is running",
+      "request_body": "invalid json string",
+      "test_steps": "POST /brands with invalid JSON",
+      "expected_result": "Status: 400; JSON parsing error",
+      "actual_result": "",
+      "result": ""
+    },
+    {
+      "test_case_id": "BR-POST-009",
+      "title": "Create Brand - Extra Fields",
+      "preconditions": "API server is running",
+      "request_body": {
+        "name": "Brand With Extra Fields",
+        "description": "Test brand",
+        "extra_field": "should be ignored",
+        "another_field": 123
+      },
+      "test_steps": "POST /brands with extra fields",
+      "expected_result": "Status: 201; extra fields should be ignored",
+      "actual_result": "",
+      "result": ""
+    },
+    {
+      "test_case_id": "BR-POST-010",
+      "title": "Create Brand - Numeric Name",
+      "preconditions": "API server is running",
+      "request_body": {
+        "name": "12345",
+        "description": "Brand with numeric name"
+      },
+      "test_steps": "POST /brands with numeric name",
+      "expected_result": "Status: 201; numeric names should be accepted",
+      "actual_result": "",
+      "result": ""
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+test_case_id,title,preconditions,inputs,test_steps,expected_result,actual_result,result
+BR-001,Get All Brands - Basic,API server is running,query_params=,GET /brands with no parameters,Status: 200, JSON array with brands,,PASS
+BR-002,Get Brands with Pagination,API server is running,query_params=?page=1&per_page=5,GET /brands with pagination,Status: 200, 5 brands returned,,PASS
+BR-003,Get Brands with Invalid Page,API server is running,query_params=?page=0,GET /brands with invalid page,Status: 422 or 400,,FAIL
+BR-004,Get Brands with Large Page Size,API server is running,query_params=?per_page=100,GET /brands with large page size,Status: 200, up to 100 brands,,PASS
+BR-005,Get Brands with Search,API server is running,query_params=?search=apple,GET /brands with search term,Status: 200, filtered results,,PASS
+BR-006,Get Brands with Non-existent Search,API server is running,query_params=?search=nonexistent,GET /brands with non-existent search,Status: 200, empty array,,PASS
+BR-007,Get Brands with Special Characters,API server is running,query_params=?search=café,GET /brands with special characters,Status: 200, proper encoding,,PASS
+BR-008,Get Brands with Sort,API server is running,query_params=?sort=name&order=asc,GET /brands with sorting,Status: 200, sorted results,,PASS
+BR-009,Get Brands with Invalid Sort Field,API server is running,query_params=?sort=invalid_field,GET /brands with invalid sort,Status: 422 or 400,,FAIL
+BR-010,Get Brands with Multiple Parameters,API server is running,query_params=?page=1&per_page=10&search=tech&sort=name&order=desc,GET /brands with multiple params,Status: 200, filtered and sorted,,PASS

@@ -1,0 +1,15 @@
+Test Case ID,Title,Preconditions,Inputs,Test Steps,Expected Result,Actual Result,Result
+PR-001,Get All Products - Basic,API server is running,query_params=,GET /products with no parameters,Status: 200,Test executed successfully,PASS
+PR-002,Get Products with Pagination,API server is running,query_params=?page=1&per_page=5,GET /products with pagination,Status: 200,Test executed successfully,PASS
+PR-003,Get Products with Category Filter,API server is running,query_params=?category=7,GET /products filtered by category,Status: 200,Test executed successfully,PASS
+PR-004,Get Products with Brand Filter,API server is running,query_params=?brand=1,GET /products filtered by brand,Status: 200,Test executed successfully,PASS
+PR-005,Get Products with Price Range,API server is running,query_params=?min_price=100&max_price=500,GET /products with price range,Status: 200,Test executed successfully,PASS
+PR-006,Get Products with Search,API server is running,query_params=?search=hammer,GET /products with search term,Status: 200,Test executed successfully,PASS
+PR-007,Get Products with Sort by Price,API server is running,query_params=?sort=price&order=desc,GET /products sorted by price,Status: 200,Test executed successfully,PASS
+PR-008,Get Products with Invalid Category,API server is running,query_params=?category=999,GET /products with invalid category,Status: 200,Test executed successfully,PASS
+PR-009,Get Products with Multiple Filters,API server is running,query_params=?category=7&brand=1&min_price=50&max_price=200,GET /products with multiple filters,Status: 200,Test failed: 1.  AssertionError  Response time is less than 3000ms,FAIL
+PR-010,Get Products with Large Page Size,API server is running,query_params=?per_page=50,GET /products with large page size,Status: 200,Test executed successfully,PASS
+PR-011,Get Products with Invalid Page,API server is running,query_params=?page=0,GET /products with invalid page,Status: 422 or 400,Test failed: 1.  AssertionError  Status code is 422,FAIL
+PR-012,Get Products with Non-existent Search,API server is running,query_params=?search=nonexistent,GET /products with non-existent search,Status: 200,Test executed successfully,PASS
+PR-013,Get Products with Special Characters,API server is running,query_params=?search=laptop&category=7,GET /products with special characters,Status: 200,Test executed successfully,PASS
+PR-014,Get Products with Complex Query,API server is running,query_params=?page=1&per_page=10&category=7&brand=1&min_price=100&max_price=1000&search=hammer&sort=price&order=asc,GET /products with complex query,Status: 200,Test executed successfully,PASS

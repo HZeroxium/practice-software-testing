@@ -1,0 +1,180 @@
+name: API Testing - The Toolshop
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "sprint5/**"
+      - "tests/api-testing/**"
+      - ".github/workflows/api-testing.yml"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "sprint5/**"
+      - "tests/api-testing/**"
+      - ".github/workflows/api-testing.yml"
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "API Base URL for testing"
+        required: false
+        default: "http://localhost:8091"
+        type: string
+      testing_mode:
+        description: "Testing mode to run"
+        required: false
+        default: "data-driven"
+        type: choice
+        options:
+          - standard
+          - data-driven
+          - both
+
+jobs:
+  setup-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      api-url: ${{ steps.set-url.outputs.api-url }}
+      testing-mode: ${{ steps.set-mode.outputs.testing-mode }}
+    steps:
+      - name: Set API URL
+        id: set-url
+        run: |
+          if [ "${{ github.event.inputs.base_url }}" != "" ]; then
+            echo "api-url=${{ github.event.inputs.base_url }}" >> $GITHUB_OUTPUT
+          else
+            echo "api-url=http://localhost:8091" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set Testing Mode
+        id: set-mode
+        run: |
+          if [ "${{ github.event.inputs.testing_mode }}" != "" ]; then
+            echo "testing-mode=${{ github.event.inputs.testing_mode }}" >> $GITHUB_OUTPUT
+          else
+            echo "testing-mode=data-driven" >> $GITHUB_OUTPUT
+          fi
+
+  api-testing:
+    needs: setup-environment
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+        python-version: [3.9, 3.11]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r tests/api-testing/requirements.txt
+
+      - name: Check dependencies
+        run: |
+          cd tests/api-testing
+          python scripts/run-api-tests.py --check-deps
+
+      - name: Run API tests
+        run: |
+          cd tests/api-testing
+          python scripts/run-api-tests.py --base-url "${{ needs.setup-environment.outputs.api-url }}" --mode "${{ needs.setup-environment.outputs.testing-mode }}" --ci
+        env:
+          NEWMAN_TIMEOUT: 30000
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-test-results-${{ matrix.node-version }}-${{ matrix.python-version }}
+          path: |
+            tests/api-testing/reports/test-results/
+            tests/api-testing/reports/bug-reports/
+            tests/api-testing/test-cases/
+            tests/api-testing/StudentID_*.xlsx
+          retention-days: 30
+
+      - name: Generate test summary
+        if: always()
+        run: |
+          echo "## API Test Results for Node ${{ matrix.node-version }} / Python ${{ matrix.python-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Check for data-driven test results
+          if [ -f "tests/api-testing/reports/test-results/data-driven-test-results.csv" ]; then
+            echo "### Data-Driven Test Summary" >> $GITHUB_STEP_SUMMARY
+            echo "Data-driven tests completed successfully." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Check for bug reports
+          if [ -f "tests/api-testing/reports/bug-reports/"*.csv ]; then
+            echo "### Bugs Found" >> $GITHUB_STEP_SUMMARY
+            echo "Check the uploaded artifacts for detailed bug reports." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Check for Excel files
+          if [ -f "tests/api-testing/StudentID_TestCases.xlsx" ]; then
+            echo "### Generated Artifacts" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Test Cases Excel file generated" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ -f "tests/api-testing/StudentID_BugReport.xlsx" ]; then
+            echo "✅ Bug Report Excel file generated" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  test-summary:
+    needs: api-testing
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Download all test results
+        uses: actions/download-artifact@v4
+        with:
+          path: test-results
+
+      - name: Generate overall summary
+        run: |
+          echo "# API Testing Summary - The Toolshop" > $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Overall Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Count total artifacts
+          ARTIFACT_COUNT=$(find test-results -name "*.xlsx" | wc -l)
+          echo "Total test runs: $ARTIFACT_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Check for Excel files
+          if [ -f "test-results/*/StudentID_TestCases.xlsx" ]; then
+            echo "✅ **Test Cases Excel files generated**" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ -f "test-results/*/StudentID_BugReport.xlsx" ]; then
+            echo "✅ **Bug Report Excel files generated**" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Generated Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "Check the uploaded artifacts for:" >> $GITHUB_STEP_SUMMARY
+          echo "- Test Cases (CSV and Excel format)" >> $GITHUB_STEP_SUMMARY
+          echo "- Bug Reports (CSV and Excel format)" >> $GITHUB_STEP_SUMMARY
+          echo "- Test Results (JSON format)" >> $GITHUB_STEP_SUMMARY
+          echo "- Updated README.md and StudentID_APITesting.md" >> $GITHUB_STEP_SUMMARY
