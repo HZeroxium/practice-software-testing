@@ -11,9 +11,9 @@ export const RUN_ALL_ADMIN_TESTS = true;
 // Specify which test cases to run when RUN_ALL_ADMIN_TESTS is false
 // Add or remove test case IDs from this array
 export const ADMIN_TEST_CASES: string[] = [
-  "EP-AP-01",
-  "EP-AP-02",
-  "EP-AP-03",
+  // "EP-AP-01",
+  // "EP-AP-02",
+  // "EP-AP-03",
   // "TC_ADMIN_PRODUCT_001",
   // "TC_ADMIN_PRODUCT_002",
   // "TC_ADMIN_PRODUCT_003",
@@ -40,7 +40,7 @@ export const EXCLUDE_ADMIN_BY_SUFFIX: string[] = [
 
 // Test data file path (relative to project root)
 export const ADMIN_TEST_DATA_FILE =
-  "tests/data/input/admin_product_test_data.csv";
+  "tests/data/input/add_product_test_data.csv";
 
 // Admin credentials for authentication
 export const ADMIN_CREDENTIALS = {

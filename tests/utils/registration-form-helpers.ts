@@ -97,27 +97,27 @@ export class RegistrationFormHelpers {
     // This gives the server time to process the request
     await this.page.waitForTimeout(1000); // Initial wait for form submission
 
-    try {
-      // Wait for one of several possible outcomes
-      await Promise.race([
-        // Success: Redirect to login page
-        this.page.waitForURL(/login/, { timeout: 8000 }),
-        // Error: Server error message appears
-        this.page.waitForSelector('[data-test="register-error"]', {
-          timeout: 8000,
-        }),
-        // Validation: Field-level errors appear
-        this.page.waitForSelector('[class*="error"], [data-test*="-error"]', {
-          timeout: 8000,
-        }),
-        // Network: Wait for network to be idle
-        this.page.waitForLoadState("networkidle", { timeout: 8000 }),
-      ]);
-    } catch (timeoutError) {
-      console.log(
-        "⏱️ Submission wait timed out - continuing with current state"
-      );
-    }
+      try {
+        // Wait for one of several possible outcomes
+        await Promise.race([
+          // Success: Redirect to login page
+          this.page.waitForURL(/login/, { timeout: 8000 }),
+          // Error: Server error message appears
+          this.page.waitForSelector('[data-test="register-error"]', {
+            timeout: 8000,
+          }),
+          // Validation: Field-level errors appear
+          this.page.waitForSelector('[class*="error"], [data-test*="-error"]', {
+            timeout: 8000,
+          }),
+          // Network: Wait for network to be idle
+          this.page.waitForLoadState("networkidle", { timeout: 8000 }),
+        ]);
+      } catch (timeoutError) {
+        console.log(
+          "⏱️ Submission wait timed out - continuing with current state"
+        );
+      }
 
     // Additional wait to ensure UI has updated
     await this.page.waitForTimeout(1500);
