@@ -7,3 +7,6 @@ node_modules/
 .venv
 __pycache__/
 *.pyc
+mysql
+mysql_data
+tests/performance-testing/results
