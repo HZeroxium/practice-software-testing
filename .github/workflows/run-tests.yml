@@ -2,7 +2,7 @@ name: Run Playwright Tests 🎭
 
 on:
   push:
-    branches: [ main ]
+    branches: [master]
 
 concurrency: production_environment
 
