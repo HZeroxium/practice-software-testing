@@ -1,3 +1,5 @@
+# .github/workflows/api-testing.yml
+
 name: API Testing - The Toolshop
 
 on:
@@ -67,6 +69,57 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup environment variables
+        run: |
+          echo "SPRINT_FOLDER=sprint5-with-bugs" >> .env
+          echo "DISABLE_LOGGING=true" >> .env
+          cat .env
+
+      - name: Start containers 🐳
+        run: |
+          export DISABLE_LOGGING=true
+          docker compose -f docker-compose.yml up -d
+
+      - name: Sleep for 60 seconds
+        run: sleep 60s
+        shell: bash
+
+      - name: Wait for database to be ready
+        run: |
+          timeout 120s bash -c 'until docker compose exec -T mariadb mysqladmin ping -h"localhost" --silent; do sleep 2; done'
+          echo "Database is ready!"
+
+      - name: Create & Seed database 🌱
+        run: |
+          docker compose exec -T laravel-api php artisan migrate:refresh --seed
+
+      - name: Verify API is running
+        run: |
+          echo "Testing API connectivity..."
+          timeout 30s bash -c 'until curl -f http://localhost:8091/status; do sleep 2; done'
+          echo "API status endpoint is responding!"
+
+          echo "Testing brands endpoint..."
+          response=$(curl -s -w "%{http_code}" http://localhost:8091/brands)
+          echo "Brands response: $response"
+
+          echo "Testing categories endpoint..."
+          response=$(curl -s -w "%{http_code}" http://localhost:8091/categories)
+          echo "Categories response: $response"
+
+          echo "Testing products endpoint..."
+          response=$(curl -s -w "%{http_code}" http://localhost:8091/products)
+          echo "Products response: $response"
+
+          echo "Testing authentication endpoint..."
+          login_response=$(curl -s -X POST 'http://localhost:8091/users/login' \
+            -H 'Content-Type: application/json' \
+            --data-raw '{"email":"customer@practicesoftwaretesting.com","password":"welcome01"}' \
+            -w "%{http_code}")
+          echo "Login response: $login_response"
+
+          echo "API endpoints are ready for testing!"
+
       - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
@@ -81,6 +134,9 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
+      - name: Install Newman HTML Extra reporter
+        run: npm install -g newman-reporter-htmlextra
+
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
@@ -94,9 +150,26 @@ jobs:
       - name: Run API tests
         run: |
           cd tests/api-testing
-          python scripts/run-api-tests.py --base-url "${{ needs.setup-environment.outputs.api-url }}" --mode "${{ needs.setup-environment.outputs.testing-mode }}" --ci
+          echo "Starting API tests with base URL: ${{ needs.setup-environment.outputs.api-url }}"
+          echo "Testing mode: ${{ needs.setup-environment.outputs.testing-mode }}"
+          python scripts/run-api-tests.py --base-url "${{ needs.setup-environment.outputs.api-url }}" --mode "${{ needs.setup-environment.outputs.testing-mode }}" --ci --reporters "cli,json,htmlextra,junit,csv"
         env:
           NEWMAN_TIMEOUT: 30000
+
+      - name: Display test results on failure
+        if: failure()
+        run: |
+          echo "API Test execution failed. Showing logs..."
+          if [ -f "tests/api-testing/reports/test-results/overall-results.json" ]; then
+            echo "=== Overall Results ==="
+            cat tests/api-testing/reports/test-results/overall-results.json
+          fi
+
+          echo "=== Docker container logs ==="
+          docker compose logs laravel-api
+
+          echo "=== API status check ==="
+          curl -v http://localhost:8091/status || echo "API is not responding"
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
@@ -110,35 +183,69 @@ jobs:
             tests/api-testing/StudentID_*.xlsx
           retention-days: 30
 
+      - name: Cleanup containers 🧹
+        if: always()
+        run: |
+          docker compose -f docker-compose.yml down
+          docker system prune -f
+
       - name: Generate test summary
         if: always()
         run: |
           echo "## API Test Results for Node ${{ matrix.node-version }} / Python ${{ matrix.python-version }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Base URL:** ${{ needs.setup-environment.outputs.api-url }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Testing Mode:** ${{ needs.setup-environment.outputs.testing-mode }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Check for overall results
+          if [ -f "tests/api-testing/reports/test-results/overall-results.json" ]; then
+            echo "### Test Execution Summary" >> $GITHUB_STEP_SUMMARY
+            
+            # Extract summary from JSON (basic parsing)
+            total_collections=$(cat tests/api-testing/reports/test-results/overall-results.json | grep -o '"total_collections":[0-9]*' | cut -d':' -f2 | head -1)
+            passed_collections=$(cat tests/api-testing/reports/test-results/overall-results.json | grep -o '"passed_collections":[0-9]*' | cut -d':' -f2 | head -1)
+            total_tests=$(cat tests/api-testing/reports/test-results/overall-results.json | grep -o '"total_tests":[0-9]*' | cut -d':' -f2 | head -1)
+            passed_tests=$(cat tests/api-testing/reports/test-results/overall-results.json | grep -o '"passed_tests":[0-9]*' | cut -d':' -f2 | head -1)
+            
+            echo "- **Collections:** $passed_collections/$total_collections passed" >> $GITHUB_STEP_SUMMARY
+            echo "- **Tests:** $passed_tests/$total_tests passed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
 
           # Check for data-driven test results
           if [ -f "tests/api-testing/reports/test-results/data-driven-test-results.csv" ]; then
             echo "### Data-Driven Test Summary" >> $GITHUB_STEP_SUMMARY
-            echo "Data-driven tests completed successfully." >> $GITHUB_STEP_SUMMARY
+            test_count=$(tail -n +2 tests/api-testing/reports/test-results/data-driven-test-results.csv | wc -l)
+            echo "- **Data-driven tests executed:** $test_count" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
           fi
 
           # Check for bug reports
-          if [ -f "tests/api-testing/reports/bug-reports/"*.csv ]; then
-            echo "### Bugs Found" >> $GITHUB_STEP_SUMMARY
-            echo "Check the uploaded artifacts for detailed bug reports." >> $GITHUB_STEP_SUMMARY
+          if ls tests/api-testing/reports/bug-reports/*.csv 1> /dev/null 2>&1; then
+            echo "### 🐛 Bugs Found" >> $GITHUB_STEP_SUMMARY
+            bug_count=$(find tests/api-testing/reports/bug-reports/ -name "*.csv" -exec tail -n +2 {} \; | wc -l)
+            echo "- **Total bugs found:** $bug_count" >> $GITHUB_STEP_SUMMARY
+            echo "- Check the uploaded artifacts for detailed bug reports." >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
           fi
 
           # Check for Excel files
           if [ -f "tests/api-testing/StudentID_TestCases.xlsx" ]; then
-            echo "### Generated Artifacts" >> $GITHUB_STEP_SUMMARY
+            echo "### 📊 Generated Artifacts" >> $GITHUB_STEP_SUMMARY
             echo "✅ Test Cases Excel file generated" >> $GITHUB_STEP_SUMMARY
           fi
 
           if [ -f "tests/api-testing/StudentID_BugReport.xlsx" ]; then
             echo "✅ Bug Report Excel file generated" >> $GITHUB_STEP_SUMMARY
           fi
+
+          # List all generated files
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📁 All Generated Files" >> $GITHUB_STEP_SUMMARY
+          find tests/api-testing/reports/ -type f -name "*.json" -o -name "*.csv" -o -name "*.html" -o -name "*.xml" | head -10 | while read file; do
+            echo "- \`$file\`" >> $GITHUB_STEP_SUMMARY
+          done
 
   test-summary:
     needs: api-testing
@@ -152,29 +259,49 @@ jobs:
 
       - name: Generate overall summary
         run: |
-          echo "# API Testing Summary - The Toolshop" > $GITHUB_STEP_SUMMARY
+          echo "# 🧪 API Testing Summary - The Toolshop" > $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## Overall Results" >> $GITHUB_STEP_SUMMARY
+          echo "**Test Execution Date:** $(date '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-
-          # Count total artifacts
-          ARTIFACT_COUNT=$(find test-results -name "*.xlsx" | wc -l)
-          echo "Total test runs: $ARTIFACT_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "## 📊 Overall Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          # Check for Excel files
-          if [ -f "test-results/*/StudentID_TestCases.xlsx" ]; then
+          # Count total artifacts and results
+          ARTIFACT_COUNT=$(find test-results -name "*.xlsx" 2>/dev/null | wc -l)
+          RESULT_FILES=$(find test-results -name "overall-results.json" 2>/dev/null | wc -l)
+
+          echo "- **Total test runs:** $RESULT_FILES" >> $GITHUB_STEP_SUMMARY
+          echo "- **Excel reports generated:** $ARTIFACT_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Check for Excel files in each artifact
+          if find test-results -name "StudentID_TestCases.xlsx" 2>/dev/null | grep -q .; then
             echo "✅ **Test Cases Excel files generated**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Test Cases Excel files not found" >> $GITHUB_STEP_SUMMARY
           fi
 
-          if [ -f "test-results/*/StudentID_BugReport.xlsx" ]; then
+          if find test-results -name "StudentID_BugReport.xlsx" 2>/dev/null | grep -q .; then
             echo "✅ **Bug Report Excel files generated**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ No Bug Report Excel files (no bugs found)" >> $GITHUB_STEP_SUMMARY
           fi
 
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## Generated Artifacts" >> $GITHUB_STEP_SUMMARY
-          echo "Check the uploaded artifacts for:" >> $GITHUB_STEP_SUMMARY
-          echo "- Test Cases (CSV and Excel format)" >> $GITHUB_STEP_SUMMARY
-          echo "- Bug Reports (CSV and Excel format)" >> $GITHUB_STEP_SUMMARY
-          echo "- Test Results (JSON format)" >> $GITHUB_STEP_SUMMARY
-          echo "- Updated README.md and StudentID_APITesting.md" >> $GITHUB_STEP_SUMMARY
+          echo "## 📁 Generated Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "The following artifacts are available for download:" >> $GITHUB_STEP_SUMMARY
+          echo "- 📋 **Test Cases** (CSV and Excel format)" >> $GITHUB_STEP_SUMMARY
+          echo "- 🐛 **Bug Reports** (CSV and Excel format)" >> $GITHUB_STEP_SUMMARY
+          echo "- 📊 **Test Results** (JSON, HTML, XML formats)" >> $GITHUB_STEP_SUMMARY
+          echo "- 📄 **Test Reports** (Markdown format)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # List some key files found
+          echo "### 🔍 Key Files Generated" >> $GITHUB_STEP_SUMMARY
+          find test-results -type f \( -name "*.xlsx" -o -name "overall-results.json" -o -name "data-driven-test-results.csv" \) 2>/dev/null | head -10 | while read file; do
+            echo "- \`$(basename "$file")\`" >> $GITHUB_STEP_SUMMARY
+          done
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "*🤖 Automated API Testing completed successfully*" >> $GITHUB_STEP_SUMMARY
